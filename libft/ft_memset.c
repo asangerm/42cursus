@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:31:31 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/03 16:37:12 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/03 18:00:53 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/03 18:18:34 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+	void	*temp;
 
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
-int	ft_isupper(int c);
-int	ft_islower(int c);
+	temp = s;
+	i = 0;
+	while (i < n)
+	{
+		*(unsigned char *)s = c;
+		i++;
+		s++;
+	}
+	return (temp);
+}
 
-#endif
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main(void)
+{
+	char	str[50];
+	printf("%s\n", ft_memset(str, 'a', 5));
+	printf("%s\n", memset(str, 'a', 5));
+}
+*/

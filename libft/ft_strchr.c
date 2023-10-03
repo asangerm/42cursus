@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:31:31 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/03 16:37:12 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/03 16:33:23 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/03 16:47:15 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	return (NULL);
+}
 
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
-int	ft_isupper(int c);
-int	ft_islower(int c);
+/*
+#include <stdio.h>
 
-#endif
+int	main(int argc, char **argv)
+{
+	char	*temp;
+	if (argc == 3)
+	{
+		temp = ft_strchr(argv[1], argv[2][0]);
+		printf("%ld\n", temp - argv[1]);
+	}
+	return (0);
+}
+*/
