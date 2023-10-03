@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:31:31 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/03 19:18:22 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/03 18:25:38 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/03 18:37:16 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
 
-int		ft_isalpha(int c);
-int		ft_isdigit(int c);
-int		ft_isupper(int c);
-int		ft_islower(int c);
-void	*ft_memset(void *s, int c, size_t n);
+/*
+#include <stdio.h>
+#include <strings.h>
 
-#endif
+int	main(void)
+{
+	char	str1[50];
+	char	str2[50];
+	
+	ft_bzero(str1, 5);
+	bzero(str2,  5);
+	printf("%s\n", str1);
+	printf("%s\n", str2);
+	return (0);
+}
+*/
