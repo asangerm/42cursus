@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:56:51 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/04 18:10:40 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:59:33 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ft_strncat(char *dest, const char *src, size_t n)
 	size_t	dest_len;
 	size_t	i;
 
-	dest_len = strlen(dest);
+	dest_len = ft_strlen(dest);
 	i = 0;
 	while (i < n && src[i])
 	{
@@ -34,8 +34,8 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	src_len;
 	size_t	cpy_len;
 
-	dest_len = strlen(dest);
-	src_len = strlen(src);
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
 	cpy_len = size - dest_len - 1;
 	if (size != 0 && cpy_len > 0)
 	{

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 17:45:09 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/04 18:59:03 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/04 18:37:38 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/04 19:01:22 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+char	*ft_strstr(const char *str, const char *to_find, size_t len)
 {
-	size_t	src_len;
-	size_t	cpy_len;
+	size_t	i;
+	char	*temp;
 
-	src_len = ft_strlen(src);
-	if (src_len < size - 1)
-		cpy_len = src_len;
-	else
-		cpy_len = size - 1;
-	if (size != 0)
+	temp = (char *)str;
+	i = 0;
+	while (str[i] && i < len)
 	{
-		ft_memcpy(dest, src, cpy_len);
-		dest[cpy_len] = '\0';
+		if (str[i] == to_find[0] && ft_strncmp(str + i, to_find, len - i) == 0)
+		{
+			return (temp + i);
+		}
+		i++;
 	}
-	return (src_len);
+	return ("\0");
 }
