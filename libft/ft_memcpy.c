@@ -19,7 +19,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 
 	temp = dest;
 	i = 0;
-	while (i < n && *(char *)src)
+	while (i < n)
 	{
 		*(char *)dest = *(char *)src;
 		i++;
@@ -28,21 +28,3 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (temp);
 }
-
-/*
-#include <string.h>
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	void	*dest;
-
-	dest = argv[1];
-	if (argc == 4)
-	{
-		dest = ft_memcpy(dest, argv[2], atoi(argv[3]));
-	}
-	printf("dest : %s, src : %s, n : %d\n", (char *)dest, argv[2], atoi(argv[3]));
-	return (0);
-}
-*/

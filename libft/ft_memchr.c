@@ -14,30 +14,33 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
+	size_t			i;
+	unsigned char	*str;
+	unsigned char	ch;
 
+	str = (unsigned char *)s;
+	ch = (unsigned char)c;
 	i = 0;
-	while (*(unsigned char *)s && i < n)
+	while (i < n)
 	{
-		if (*(unsigned char *)s == c)
-			return ((void *)s);
-		s++;
+		if (*str == ch)
+			return (str);
+		str++;
 		i++;
 	}
 	return (NULL);
 }
 
 /*
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <stdio.h>
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	void	*temp;
-	if (argc == 4)
-	{
-		temp = ft_memchr((const void *)argv[1], argv[2][0], (size_t)atoi(argv[3]));
-		printf("%ld\n", (char *)temp - argv[1]);
-	}
+	int tab[7] = {-49, 49, 1, -1, 0, -2, 2};
+	printf("%s\n%s", (char *)ft_memchr(tab, -1, 7), (char *)memchr(tab, -1, 7));
 	return (0);
 }
 */

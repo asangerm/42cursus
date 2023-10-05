@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:12:27 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/04 18:35:07 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:49:23 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ int	ft_atoi(const char *str)
 	res = 0;
 	i = 0;
 	neg = 1;
-	if (str[0] == '-')
+	if (str[0] == '-' || str[0] == '+')
 	{
-		neg = -1;
+		if (str[0] == '-')
+		{
+			neg = -1;
+		}
 		i++;
 	}
 	while (str[i])
 	{
-		if (str[i] > '0' && str[i] < '9')
+		if (str[i] >= '0' && str[i] <= '9')
 			res = res * 10 + (str[i] - '0');
 		else
 			return (res * neg);

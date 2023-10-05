@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 18:37:38 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/05 16:27:38 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/05 14:34:47 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/05 15:02:13 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str, const char *to_find, size_t len)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	i;
-	char	*temp;
+	void	*ptr;
 
-	temp = (char *)str;
-	i = 0;
-	while (str[i] && i < len)
-	{
-		if (str[i] == to_find[0] && ft_strncmp(str + i, to_find, len - i) == 0)
-		{
-			return (temp + i);
-		}
-		i++;
-	}
-	return ("\0");
+	ptr = (void *)malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, nmemb);
+	return (ptr);
 }

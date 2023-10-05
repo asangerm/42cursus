@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 18:37:38 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/05 16:27:38 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/05 14:50:07 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/05 14:50:47 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str, const char *to_find, size_t len)
+char	*ft_strdup(char *src)
 {
-	size_t	i;
-	char	*temp;
+	char	*newstr;
+	int		lensrc;
+	int		i;
 
-	temp = (char *)str;
 	i = 0;
-	while (str[i] && i < len)
+	lensrc = ft_strlen(src) + 1;
+	newstr = malloc(lensrc * sizeof(char));
+	while (src[i])
 	{
-		if (str[i] == to_find[0] && ft_strncmp(str + i, to_find, len - i) == 0)
-		{
-			return (temp + i);
-		}
+		newstr[i] = src[i];
 		i++;
 	}
-	return ("\0");
+	newstr[i] = '\0';
+	return (newstr);
 }
