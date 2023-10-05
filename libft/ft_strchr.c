@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:33:23 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/03 16:47:15 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:26:04 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
+	if (*s == c)
+		return ((char *)s);
 	return (NULL);
 }
 
