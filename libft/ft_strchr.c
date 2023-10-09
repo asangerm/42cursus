@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:33:23 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/05 18:26:04 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:37:42 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,27 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (unsigned char)c)
 			return ((char *)s);
 		s++;
 	}
-	if (*s == c)
+	if (*s == (unsigned char)c)
 		return ((char *)s);
 	return (NULL);
 }
 
 /*
 #include <stdio.h>
+#include <string.h>
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char	*temp;
-	if (argc == 3)
-	{
-		temp = ft_strchr(argv[1], argv[2][0]);
-		printf("%ld\n", temp - argv[1]);
-	}
+	char	*temp2;
+	temp2 = strchr("tripouille", 't' + 256);
+	temp = ft_strchr("tripouille", 't' + 256);
+	printf("MINE: %s\nREAL: %s\n", temp, temp2);
+	printf("%c\n", 't' + 256);
 	return (0);
 }
 */
