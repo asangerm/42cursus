@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:04:02 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/09 22:21:54 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:35:24 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_gimme(char *str, int i, int j)
 	int		k;
 
 	k = 0;
-	wrd = malloc(sizeof(char) * (j - i));
+	wrd = malloc(sizeof(char) * (j - i + 1));
 	while (i < j)
 	{
 		wrd[k] = str[i];
