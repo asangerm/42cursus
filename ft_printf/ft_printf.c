@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 13:09:11 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/14 15:25:02 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:35:43 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ static void	ft_convert_base(unsigned long int nb, char *base, char *nbrchar, int
 	{
 		nbrchar[*i] = base[nb];
 		*i += 1;
+	}
+}
+
+void	ft_putunsigned_fd(unsigned int n, int fd)
+{
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(n + '0', fd);
 	}
 }
 
@@ -60,6 +73,8 @@ int	ft_printf(const char *format, ...)
 			format++;
 			if (*format == 'c')
 				ft_putchar_fd(va_arg(args, int), 1);
+			if (*format == 'u')
+				ft_putunsigned_fd(va_arg(args, unsigned int), 1);
 			if (*format == 'i' || *format == 'd')
 				ft_putnbr_fd(va_arg(args, int), 1);
 			if (*format == 's')
@@ -77,13 +92,12 @@ int	ft_printf(const char *format, ...)
 	return (0);
 }
 
+/*
 #include <stdio.h>
 
 int	main(void)
 {
-	int	i;
-
-	i = 0;
-	ft_printf("%p\n", &i);
-	printf("%p\n", &i);
+	ft_printf("%u \n", 256984);
+	printf("%u\n", 256984);
 }
+*/
