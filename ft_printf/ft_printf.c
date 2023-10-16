@@ -6,98 +6,99 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 13:09:11 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/14 15:35:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:53:08 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_convert_base(unsigned long int nb, char *base, char *nbrchar, int *i)
+int	ft_convert_base(unsigned long nb, char *base)
 {
 	unsigned int	l;
+	int				res;
 
+	res = 0;
 	l = 16;
 	if (nb >= l)
 	{
-		ft_convert_base(nb / l, base, nbrchar, i);
-		ft_convert_base(nb % l, base, nbrchar, i);
+		res += ft_convert_base(nb / l, base);
+		res += ft_convert_base(nb % l, base);
 	}
 	else
 	{
-		nbrchar[*i] = base[nb];
-		*i += 1;
+		res += ft_putchar_fd(base[nb], 1);
 	}
+	return (res);
 }
 
-void	ft_putunsigned_fd(unsigned int n, int fd)
+int	ft_putunsigned_fd(unsigned int n, int fd)
 {
+	int	res;
+
+	res = 0;
 	if (n >= 10)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
+		res += ft_putnbr_fd(n / 10, fd);
+		res += ft_putnbr_fd(n % 10, fd);
 	}
 	else
 	{
-		ft_putchar_fd(n + '0', fd);
+		res += ft_putchar_fd(n + '0', fd);
 	}
+	return (res);
 }
 
-static void	ft_hexconvert(unsigned long int n, char c)
+int	ft_hexconvert(unsigned long int n, char c)
 {
 	char	*base;
-	char	*result;
-	int		i;
+	int		res;
 
-	result = ft_calloc(sizeof(char), 16 + 1);
+	res = 0;
 	if (c == 'X')
 		base = "0123456789ABCDEF";
 	else
 		base = "0123456789abcdef";
 	if (c == 'p')
-		ft_putstr_fd("0x", 1);
-	i = 0;
-	ft_convert_base(n, base, result, &i);
-	ft_putstr_fd(result, 1);
-	free(result);
+	{
+		if (n == 0)
+		{
+			res += ft_putstr_fd("(nil)")
+		}
+		res += ft_putstr_fd("0x", 1);
+	}
+	res += ft_convert_base(n, base);
+	return (res);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	int		res;
 
 	va_start(args, format);
+	res = 0;
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
 			if (*format == 'c')
-				ft_putchar_fd(va_arg(args, int), 1);
+				res += ft_putchar_fd(va_arg(args, int), 1);
 			if (*format == 'u')
 				ft_putunsigned_fd(va_arg(args, unsigned int), 1);
 			if (*format == 'i' || *format == 'd')
-				ft_putnbr_fd(va_arg(args, int), 1);
+				res += ft_putnbr_fd(va_arg(args, int), 1);
 			if (*format == 's')
-				ft_putstr_fd(va_arg(args, char *), 1);
+				res += ft_putstr_fd(va_arg(args, char *), 1);
 			if (*format == '%')
-				write(1, "%", 1);
+				res += ft_putchar_fd('%', 1);
 			if (*format == 'x' || *format == 'X' || *format == 'p')
-				ft_hexconvert(va_arg(args, unsigned long int), *format);
+				res += ft_hexconvert(va_arg(args, unsigned long int), *format);
 		}
 		else
-			ft_putchar_fd(*format, 1);
+			res += ft_putchar_fd(*format, 1);
 		format++;
 	}
 	va_end(args);
-	return (0);
+	return (res);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	ft_printf("%u \n", 256984);
-	printf("%u\n", 256984);
-}
-*/
