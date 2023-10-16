@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:06:51 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/16 16:43:37 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:12:15 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,4 @@ void	*ft_calloc(size_t nmemb, size_t size)
 void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, '\0', n);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t	i;
-	void	*temp;
-
-	temp = s;
-	i = 0;
-	while (i < n)
-	{
-		*(unsigned char *)s = c;
-		i++;
-		s++;
-	}
-	return (temp);
 }
