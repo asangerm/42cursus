@@ -38,7 +38,7 @@ char	*ft_strrchr(const char *s, int c)
 	return ((char *)temp);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	size_t	j;
@@ -64,4 +64,36 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	new[ft_strlen(s2) + ft_strlen(s1)] = '\0';
 	return (new);
+}
+
+char	*ft_strdup(char *src)
+{
+	char	*newstr;
+	int		lensrc;
+	int		i;
+
+	i = 0;
+	lensrc = ft_strlen(src) + 1;
+	newstr = malloc(lensrc * sizeof(char));
+	if (!newstr)
+		return (NULL);
+	while (src[i])
+	{
+		newstr[i] = src[i];
+		i++;
+	}
+	newstr[i] = '\0';
+	return (newstr);
+}
+
+int	ft_strlen_endl(char	*str)
+{
+	int	len;
+
+	len = 0;
+	while (str[len] && str[len] != '\n')
+	{
+		len++;
+	}
+	return (len);
 }
