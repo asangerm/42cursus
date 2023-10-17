@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:46:18 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/17 19:01:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:15:02 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -109,16 +109,16 @@ char	*ft_newstr(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[4096];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_a_next_line(fd, str);
-	if (!str)
+	str[fd] = ft_a_next_line(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = ft_the_real_line(str);
-	str = ft_newstr(str);
+	line = ft_the_real_line(str[fd]);
+	str[fd] = ft_newstr(str[fd]);
 	return (line);
 }
 /*
