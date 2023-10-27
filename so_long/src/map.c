@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/27 17:08:51 by asangerm         ###   ########.fr       */
+/*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
+/*   Updated: 2023/10/27 17:20:28 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "so_long.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <fcntl.h>
-# include "../libft/src/libft.h"
-# include "../minilibx-linux/mlx.h"
-
-typedef struct s_size_m
+void	map_size(char *file)
 {
-	int	h;
-	int w;
-}				t_size_m;
+	char	*line;
+	int		size;
+	int		fd;
 
-void	map_size(char *file);
-
-#endif
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	size = ft_strlen(line);
+	ft_printf("%d\n", size);
+	ft_printf("%s\n", line);
+	close(fd);
+	return ;
+}

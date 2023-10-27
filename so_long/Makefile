@@ -6,7 +6,7 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 11:25:47 by asangerm          #+#    #+#              #
-#    Updated: 2023/10/24 16:24:53 by asangerm         ###   ########.fr        #
+#    Updated: 2023/10/27 17:12:20 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ all				:	$(NAME)
 # The name rule
 $(NAME)			:	$(OBJ) $(LIBFT) $(MLX)
 	@echo "\033[0;33mCompiling the whole project -> ⏳\033[0m"
-	@$(CC) $< $(LIBFT) $(MLX) $(MFLAGS) -o $@
+	@$(CC) $(OBJ) $(LIBFT) $(MLX) $(MFLAGS) -o $@
 	@echo "\033[0;32mProject successfuly compiled -> ✅\033[0m\n"
 
 # The libft rule

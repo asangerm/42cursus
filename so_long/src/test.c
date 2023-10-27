@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/24 19:28:59 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:20:50 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main()
     mlx_put_image_to_window(mlx, win, img, i, j);
 	i = width;
 	j = height;
-
+	map_size("./map/map.ber");
 
     mlx_loop(mlx);
 
