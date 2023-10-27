@@ -12,58 +12,44 @@
 
 #include "so_long.h"
 
-# define WIN_W 1920
-# define WIN_H 1080
-# define MLX_ERROR 1
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int main()
 {
-	char	*dst;
+    void *mlx;
+    void *win;
+    void *img;
+	int width;
+    int height;
+	int i;
+	int j;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
+	ft_printf("Avant mlx\n");
+    mlx = mlx_init();
+	if (!mlx)
+		return (0);
+	ft_printf("Avant win\n");
+    win = mlx_new_window(mlx, 800, 600, "My Image Window");
+	if (!win)
+		return (0);
+	ft_printf("Avant img\n");
+    
+	img = mlx_xpm_file_to_image(mlx, "./textures/dirt.xpm", &width, &height);
+	if (!img)
+		return (0);
+	ft_printf("Avant mlx_put_img_to_win\n");
+    mlx_put_image_to_window(mlx, win, img, 0, 0);
+	i = width/4;
+	j = height/4;
 
-int	main(void)
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int		i;
-	int		j;
-	t_data	img;
+	img = mlx_xpm_file_to_image(mlx, "./textures/steve.xpm", &width, &height);
+	if (!img)
+		return (0);
+	ft_printf("Avant mlx_put_img_to_win\n");
+    mlx_put_image_to_window(mlx, win, img, i, j);
+	i = width;
+	j = height;
 
-	i = 0;
-	j = 0;
-	mlx_ptr = mlx_init();
-	if (mlx_ptr == NULL)
-        return (MLX_ERROR);
-	win_ptr = mlx_new_window(mlx_ptr, WIN_W, WIN_H, "so_long");
-	 if (win_ptr == NULL)
-    {
-        free(mlx_ptr);
-        return (MLX_ERROR);
-    }
-	img.img = mlx_new_image(mlx_ptr, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	while (i <= WIN_W && j <= WIN_H)
-	{
-		my_mlx_pixel_put(&img, i, j, 0x00FF0000);
-		i++;
-		j++;
-	}
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
-	while (1)
-		;
-	mlx_destroy_window(mlx_ptr, win_ptr);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
-	return (0);
+
+    mlx_loop(mlx);
+
+    return (0);
 }
