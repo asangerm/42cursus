@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:31:31 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/24 14:19:13 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:40:53 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_strdup(char *src);
+char	*get_next_line(int fd);
 int		ft_lstsize(t_list *lst);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *str);
 t_list	*ft_lstlast(t_list *lst);
+int		ft_strlen_endl(char	*str);
 t_list	*ft_lstnew(void *content);
 void	ft_bzero(void *s, size_t n);
 int		ft_putnbr_fd(int n, int fd);
@@ -48,6 +50,7 @@ int		ft_printf(const char *arg, ...);
 char	*ft_strchr(const char *s, int c);
 char	**ft_split(char const *s, char c);
 char	*ft_strrchr(const char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_hexconvert(unsigned long n, char c);
