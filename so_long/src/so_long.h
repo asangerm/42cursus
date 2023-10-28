@@ -21,10 +21,11 @@
 
 typedef struct s_size_m
 {
-	int	h;
-	int w;
+	size_t	h;
+	size_t	w;
 }				t_size_m;
 
-void	map_size(char *file);
+t_size_m	map_size(char *file);
+char		**map_to_tab(char *file, t_size_m size_m);
 
 #endif

@@ -12,44 +12,55 @@
 
 #include "so_long.h"
 
-int main()
+void	ft_put_tab(char **tab)
 {
-    void *mlx;
-    void *win;
-    void *img;
-	int width;
-    int height;
-	int i;
-	int j;
+	int	i;
+
+	i = 0;
+	while(tab[i])
+	{
+		ft_putendl_fd(tab[i], 1);
+		i++;
+	}
+}
+
+int	main(void)
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			width;
+	int			height;
+	int			i;
+	int			j;
+	t_size_m	size_m;
 
 	ft_printf("Avant mlx\n");
-    mlx = mlx_init();
+	mlx = mlx_init();
 	if (!mlx)
 		return (0);
 	ft_printf("Avant win\n");
-    win = mlx_new_window(mlx, 800, 600, "My Image Window");
+	win = mlx_new_window(mlx, 800, 600, "My Image Window");
 	if (!win)
 		return (0);
 	ft_printf("Avant img\n");
-    
 	img = mlx_xpm_file_to_image(mlx, "./textures/dirt.xpm", &width, &height);
 	if (!img)
 		return (0);
 	ft_printf("Avant mlx_put_img_to_win\n");
-    mlx_put_image_to_window(mlx, win, img, 0, 0);
-	i = width/4;
-	j = height/4;
-
+	mlx_put_image_to_window(mlx, win, img, 0, 0);
+	i = width / 4;
+	j = height / 4;
 	img = mlx_xpm_file_to_image(mlx, "./textures/steve.xpm", &width, &height);
 	if (!img)
 		return (0);
 	ft_printf("Avant mlx_put_img_to_win\n");
-    mlx_put_image_to_window(mlx, win, img, i, j);
+	mlx_put_image_to_window(mlx, win, img, i, j);
 	i = width;
 	j = height;
-	map_size("./map/map.ber");
-
-    mlx_loop(mlx);
-
-    return (0);
+	size_m = map_size("./map/map.ber");
+	ft_put_tab(map_to_tab("./map/map.ber", size_m));
+	ft_printf("hauteur : %d, largeur : %d\n", size_m.h, size_m.w);
+	mlx_loop(mlx);
+	return (0);
 }
