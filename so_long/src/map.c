@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/27 17:20:28 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:27:53 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ t_size_m	map_size(char *file)
 	return (size_m);
 }
 
+char	*del_endl(char *str)
+{
+	char	*new;
+	int		i;
+
+	if (!ft_strchr(str, '\n'))
+		return (str);
+	new = malloc(sizeof(char) * ft_strlen(str));
+	i = 0;
+	while (str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	free(str);
+	return (new);
+}
+
 char	**map_to_tab(char *file, t_size_m size_m)
 {
 	char		**tab;
@@ -63,7 +82,7 @@ char	**map_to_tab(char *file, t_size_m size_m)
 	i = 0;
 	while(i < size_m.w)
 	{
-		tab[i] = get_next_line(fd);
+		tab[i] = del_endl(get_next_line(fd));
 		i++;
 	}
 	tab[i] = (void *)0;
