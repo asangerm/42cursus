@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/30 15:27:53 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:45:48 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,27 @@ static size_t	ft_strlen_no_endl(char *str)
 	return (len);
 }
 
-static t_size_m	set_zero_err(t_size_m size_m)
-{
-	size_m.w = 0;
-	size_m.h = 0;
-	return (size_m);
-}
-
-t_size_m	map_size(char *file)
+void	map_size(t_game *game)
 {
 	char		*line;
-	t_size_m	size_m;
 	int			fd;
 
-	fd = open(file, O_RDONLY);
-	size_m.w = 0;
-	while (line != NULL || size_m.w == 0)
+	fd = open(game->map_path, O_RDONLY);
+	game->y_map = 0;
+	game->x_map = 0;
+	while (line != NULL || game->y_map == 0)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (size_m);
-		if (size_m.w == 0)
-			size_m.h = ft_strlen_no_endl(line);
-		if (ft_strlen_no_endl(line) != size_m.h)
-			return (set_zero_err(size_m));
-		size_m.w += 1;
+			return ;
+		if (game->y_map == 0)
+			game->x_map = ft_strlen_no_endl(line);
+		if ((int)ft_strlen_no_endl(line) != game->x_map)
+			return ;
+		game->y_map += 1;
 	}
 	close(fd);
-	return (size_m);
+	return ;
 }
 
 char	*del_endl(char *str)
@@ -71,21 +64,20 @@ char	*del_endl(char *str)
 	return (new);
 }
 
-char	**map_to_tab(char *file, t_size_m size_m)
+void	map_to_tab(t_game *game)
 {
-	char		**tab;
 	int			fd;
-	size_t		i;
+	int			i;
 
-	tab = malloc(size_m.h * (size_m.w + 1));
-	fd = open(file, O_RDONLY);
+	game->map = malloc(game->y_map * game->x_map);
+	fd = open(game->map_path, O_RDONLY);
 	i = 0;
-	while(i < size_m.w)
+	while (i < game->y_map)
 	{
-		tab[i] = del_endl(get_next_line(fd));
+		game->map[i] = del_endl(get_next_line(fd));
 		i++;
 	}
-	tab[i] = (void *)0;
+	game->map[i] = (void *)0;
 	close(fd);
-	return(tab);
+	return ;
 }

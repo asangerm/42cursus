@@ -6,7 +6,7 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 11:25:47 by asangerm          #+#    #+#              #
-#    Updated: 2023/10/27 17:12:20 by asangerm         ###   ########.fr        #
+#    Updated: 2023/11/02 21:54:54 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ OBJ		=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 LIBFT	=	$(LIB_DIR)libft.a
 MLX		=	$(MLX_DIR)libmlx.a
 
-# The main rule\t\t\t\t
+# The main rule
 all				:	$(NAME)
 
 # The name rule
