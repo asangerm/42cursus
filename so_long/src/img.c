@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/02 22:11:10 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:07:20 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_img(t_img *img, char *path, t_game *game)
 	img->img = mlx_xpm_file_to_image(game->mlx, img->texture,
 			&img->x_img, &img->y_img);
 	mlx_put_image_to_window(game->mlx, game->win, img->img,
-		img->y_win * 64, img->x_win * 64);
+		img->y_pos * 64, img->x_pos * 64);
 }
 
 static void	merge_img(t_img *img, t_img *fg, t_game *game)
@@ -46,7 +46,7 @@ static void	merge_img(t_img *img, t_img *fg, t_game *game)
 		y++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, img->img,
-		img->y_win * 64, img->x_win * 64);
+		img->y_pos * 64, img->x_pos * 64);
 }
 
 static void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game)
@@ -56,8 +56,8 @@ static void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game)
 	fg.texture = pathf;
 	fg.img = mlx_xpm_file_to_image(game->mlx, fg.texture,
 			&fg.x_img, &fg.y_img);
-	fg.x_win = img->x_win;
-	fg.y_win = img->y_win;
+	fg.x_pos = img->x_pos;
+	fg.y_pos = img->y_pos;
 	fg.data = mlx_get_data_addr(fg.img, &fg.bpp, &fg.size_line, &fg.endian);
 	img->texture = pathb;
 	img->img = mlx_xpm_file_to_image(game->mlx, img->texture,
@@ -71,25 +71,25 @@ void	display_map(t_game *game)
 {
 	t_img	img;
 
-	img.x_win = 0;
-	while (img.x_win < game->y_map)
+	img.x_pos = 0;
+	while (img.x_pos < game->y_map)
 	{
-		img.y_win = 0;
-		while (img.y_win < game->x_map)
+		img.y_pos = 0;
+		while (img.y_pos < game->x_map)
 		{
-			if (game->map[img.x_win][img.y_win] == '1')
+			if (game->map[img.x_pos][img.y_pos] == '1')
 				print_img(&img, "./textures/bedrock64.xpm", game);
-			else if (game->map[img.x_win][img.y_win] == '0')
+			else if (game->map[img.x_pos][img.y_pos] == '0')
 				print_img(&img, "./textures/dirt64.xpm", game);
-			else if (game->map[img.x_win][img.y_win] == 'E')
+			else if (game->map[img.x_pos][img.y_pos] == 'E')
 				print_img(&img, "./textures/nether_portal64.xpm", game);
-			else if (game->map[img.x_win][img.y_win] == 'P')
+			else if (game->map[img.x_pos][img.y_pos] == 'P')
 			{
 				overlay_img(&img, "./textures/dirt64.xpm",
 					"./textures/steve_prof2.xpm", game);
 			}
-			img.y_win++;
+			img.y_pos++;
 		}
-		img.x_win++;
+		img.x_pos++;
 	}
 }

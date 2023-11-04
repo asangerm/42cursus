@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/02 22:09:26 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:30:57 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main(int argc, char **argv)
 	map_size(&game);
 	map_to_tab(&game);
 	display_map(&game);
+	game.count = 0;
+	mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }
