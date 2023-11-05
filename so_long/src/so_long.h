@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/04 21:01:58 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:13:33 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	int		x_win;
-	int		y_win;
 	char	**map;
 	char	*map_path;
 	int		x_map;
@@ -48,9 +46,12 @@ typedef struct s_img
 	int		size_line;
 }			t_img;
 
-int			key_hook(int keybind, t_game *game);
-void		map_size(t_game *game);
-void		map_to_tab(t_game *game);
-void		display_map(t_game *game);
+void	map_size(t_game *game);
+void	map_to_tab(t_game *game);
+void	display_map(t_game *game);
+int		key_hook(int keybind, t_game *game);
+void	merge_img(t_img *img, t_img *fg, t_game *game);
+void	print_img(t_img *img, char *path, t_game *game);
+void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game);
 
 #endif

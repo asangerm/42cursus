@@ -6,13 +6,13 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/04 17:07:20 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:13:13 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	print_img(t_img *img, char *path, t_game *game)
+void	print_img(t_img *img, char *path, t_game *game)
 {
 	img->texture = path;
 	img->img = mlx_xpm_file_to_image(game->mlx, img->texture,
@@ -21,7 +21,7 @@ static void	print_img(t_img *img, char *path, t_game *game)
 		img->y_pos * 64, img->x_pos * 64);
 }
 
-static void	merge_img(t_img *img, t_img *fg, t_game *game)
+void	merge_img(t_img *img, t_img *fg, t_game *game)
 {
 	int	x;
 	int	y;
@@ -49,7 +49,7 @@ static void	merge_img(t_img *img, t_img *fg, t_game *game)
 		img->y_pos * 64, img->x_pos * 64);
 }
 
-static void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game)
+void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game)
 {
 	t_img	fg;
 
@@ -84,10 +84,11 @@ void	display_map(t_game *game)
 			else if (game->map[img.x_pos][img.y_pos] == 'E')
 				print_img(&img, "./textures/nether_portal64.xpm", game);
 			else if (game->map[img.x_pos][img.y_pos] == 'P')
-			{
 				overlay_img(&img, "./textures/dirt64.xpm",
 					"./textures/steve_prof2.xpm", game);
-			}
+			else if (game->map[img.x_pos][img.y_pos] == 'C')
+				overlay_img(&img, "./textures/dirt64.xpm",
+					"./textures/diamond.xpm", game);
 			img.y_pos++;
 		}
 		img.x_pos++;
