@@ -6,16 +6,11 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/05 20:36:40 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:12:46 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-#define K_UP 119
-#define K_DOWN 115
-#define K_LEFT 97
-#define K_RIGHT 100
 
 void	coords_p(t_game *game)
 {
@@ -23,15 +18,15 @@ void	coords_p(t_game *game)
 	int	j;
 
 	i = 0;
-	while (i < game->y_map)
+	while (i < game->map_dim.y)
 	{
 		j = 0;
-		while (j < game->x_map)
+		while (j < game->map_dim.x)
 		{
 			if (game->map[i][j] == 'P')
 			{
-				game->x_pos_p = j;
-				game->y_pos_p = i;
+				game->p_pos.x = j;
+				game->p_pos.y = i;
 			}
 			j++;
 		}
@@ -39,25 +34,34 @@ void	coords_p(t_game *game)
 	}
 }
 
-void	move_up(t_game *game)
+void	reload()
 {
 	t_img	b_img;
 	t_img	n_img;
 
+
+}
+
+void	move_up(t_game *game)
+{
+	t_img	b_img;
+	t_img	n_img;
+	t_axes	new_pos;
+
 	coords_p(game);
-	if (0 <= game->y_pos_p - 1 && game->y_pos_p - 1 < game->y_map)
+	new_pos.y = game->p_pos.y - 1;
+	new_pos.x = game->p_pos.x;
+	if (0 <= game->p_pos.y - 1 && game->p_pos.y - 1 < game->map_dim.y)
 	{
-		if (game->map[game->y_pos_p - 1][game->x_pos_p] == '0')
+		if (game->map[game->p_pos.y - 1][game->p_pos.x] == '0')
 		{
-			game->map[game->y_pos_p - 1][game->x_pos_p] = 'P';
-			game->map[game->y_pos_p][game->x_pos_p] = '0';
-			b_img.y_pos = game->x_pos_p;
-			b_img.x_pos = game->y_pos_p;
-			n_img.y_pos = game->x_pos_p;
-			n_img.x_pos = game->y_pos_p - 1;
-			print_img(&b_img, "./textures/dirt64.xpm", game);
-			overlay_img(&n_img, "./textures/dirt64.xpm",
-				"./textures/steve_prof2.xpm", game);
+			game->map[game->p_pos.y - 1][game->p_pos.x] = 'P';
+			game->map[game->p_pos.y][game->p_pos.x] = '0';
+			b_img.img_pos = game->p_pos;
+			n_img.img_pos.x = game->p_pos.x;
+			n_img.img_pos.y = game->p_pos.y - 1;
+			print_img(&b_img, DIRT, game);
+			overlay_img(&n_img, DIRT, STEVE, game);
 		}
 	}
 }
@@ -68,19 +72,17 @@ void	move_down(t_game *game)
 	t_img	n_img;
 
 	coords_p(game);
-	if (0 <= game->y_pos_p + 1 && game->y_pos_p + 1 < game->y_map)
+	if (0 <= game->p_pos.y + 1 && game->p_pos.y + 1 < game->map_dim.y)
 	{
-		if (game->map[game->y_pos_p + 1][game->x_pos_p] == '0')
+		if (game->map[game->p_pos.y + 1][game->p_pos.x] == '0')
 		{
-			game->map[game->y_pos_p + 1][game->x_pos_p] = 'P';
-			game->map[game->y_pos_p][game->x_pos_p] = '0';
-			b_img.y_pos = game->x_pos_p;
-			b_img.x_pos = game->y_pos_p;
-			n_img.y_pos = game->x_pos_p;
-			n_img.x_pos = (game->y_pos_p + 1);
-			print_img(&b_img, "./textures/dirt64.xpm", game);
-			overlay_img(&n_img, "./textures/dirt64.xpm",
-				"./textures/steve_prof2.xpm", game);
+			game->map[game->p_pos.y + 1][game->p_pos.x] = 'P';
+			game->map[game->p_pos.y][game->p_pos.x] = '0';
+			b_img.img_pos = game->p_pos;
+			n_img.img_pos.x = game->p_pos.x;
+			n_img.img_pos.y = (game->p_pos.y + 1);
+			print_img(&b_img, DIRT, game);
+			overlay_img(&n_img, DIRT, STEVE, game);
 		}
 	}
 }
@@ -91,19 +93,17 @@ void	move_left(t_game *game)
 	t_img	n_img;
 
 	coords_p(game);
-	if (0 <= game->x_pos_p - 1 && game->x_pos_p - 1 < game->x_map)
+	if (0 <= game->p_pos.x - 1 && game->p_pos.x - 1 < game->map_dim.x)
 	{
-		if (game->map[game->y_pos_p][game->x_pos_p - 1] == '0')
+		if (game->map[game->p_pos.y][game->p_pos.x - 1] == '0')
 		{
-			game->map[game->y_pos_p][game->x_pos_p - 1] = 'P';
-			game->map[game->y_pos_p][game->x_pos_p] = '0';
-			b_img.y_pos = game->x_pos_p;
-			b_img.x_pos = game->y_pos_p;
-			n_img.y_pos = (game->x_pos_p - 1);
-			n_img.x_pos = game->y_pos_p;
-			print_img(&b_img, "./textures/dirt64.xpm", game);
-			overlay_img(&n_img, "./textures/dirt64.xpm",
-				"./textures/steve_prof2.xpm", game);
+			game->map[game->p_pos.y][game->p_pos.x - 1] = 'P';
+			game->map[game->p_pos.y][game->p_pos.x] = '0';
+			b_img.img_pos = game->p_pos;
+			n_img.img_pos.x = (game->p_pos.x - 1);
+			n_img.img_pos.y = game->p_pos.y;
+			print_img(&b_img, DIRT, game);
+			overlay_img(&n_img, DIRT, STEVE, game);
 		}
 	}
 }
@@ -114,19 +114,17 @@ void	move_right(t_game *game)
 	t_img	n_img;
 
 	coords_p(game);
-	if (0 <= game->x_pos_p + 1 && game->x_pos_p + 1 < game->x_map)
+	if (0 <= game->p_pos.x + 1 && game->p_pos.x + 1 < game->map_dim.x)
 	{
-		if (game->map[game->y_pos_p][game->x_pos_p + 1] == '0')
+		if (game->map[game->p_pos.y][game->p_pos.x + 1] == '0')
 		{
-			game->map[game->y_pos_p][game->x_pos_p + 1] = 'P';
-			game->map[game->y_pos_p][game->x_pos_p] = '0';
-			b_img.y_pos = game->x_pos_p;
-			b_img.x_pos = game->y_pos_p;
-			n_img.y_pos = (game->x_pos_p + 1);
-			n_img.x_pos = game->y_pos_p;
-			print_img(&b_img, "./textures/dirt64.xpm", game);
-			overlay_img(&n_img, "./textures/dirt64.xpm",
-				"./textures/steve_prof2.xpm", game);
+			game->map[game->p_pos.y][game->p_pos.x + 1] = 'P';
+			game->map[game->p_pos.y][game->p_pos.x] = '0';
+			b_img.img_pos = game->p_pos;
+			n_img.img_pos.x = (game->p_pos.x + 1);
+			n_img.img_pos.y = game->p_pos.y;
+			print_img(&b_img, DIRT, game);
+			overlay_img(&n_img, DIRT, STEVE, game);
 		}
 	}
 }

@@ -6,23 +6,11 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/05 18:46:32 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:35:32 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_put_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_putstr_fd(tab[i], 1);
-		i++;
-	}
-}
 
 static int	check_args(int argc, char **argv)
 {
@@ -43,17 +31,17 @@ static int	check_args(int argc, char **argv)
 	return (1);
 }
 
-void	game_init(t_game *game)
+static void	game_init(t_game *game)
 {
 	game->mlx = NULL;
 	game->win = NULL;
 	game->map = NULL;
 	game->map_path = NULL;
-	game->x_map = 0;
-	game->y_map = 0;
+	game->map_dim.x = 0;
+	game->map_dim.y = 0;
 	game->count = 0;
-	game->x_pos_p = 0;
-	game->y_pos_p = 0;
+	game->p_pos.x = 0;
+	game->p_pos.y = 0;
 }
 
 int	main(int argc, char **argv)
@@ -67,12 +55,12 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (0);
-	map_size(&game);
-	game.win = mlx_new_window(game.mlx, game.x_map * 64,
-			game.y_map * 64, "My Image Window");
+	game.map_dim = map_size(game.map_path);
+	game.win = mlx_new_window(game.mlx, game.map_dim.x * 64,
+			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
-	map_to_tab(&game);
+	game.map = map_to_tab(&game);
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop(game.mlx);

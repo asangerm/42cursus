@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/02 18:45:48 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:15:04 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,28 @@ static size_t	ft_strlen_no_endl(char *str)
 	return (len);
 }
 
-void	map_size(t_game *game)
+t_axes	map_size(char *path)
 {
-	char		*line;
-	int			fd;
+	char	*line;
+	int		fd;
+	t_axes	map_dim;
 
-	fd = open(game->map_path, O_RDONLY);
-	game->y_map = 0;
-	game->x_map = 0;
-	while (line != NULL || game->y_map == 0)
+	fd = open(path, O_RDONLY);
+	map_dim.y = 0;
+	map_dim.x = 0;
+	while (line != NULL || map_dim.y == 0)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return ;
-		if (game->y_map == 0)
-			game->x_map = ft_strlen_no_endl(line);
-		if ((int)ft_strlen_no_endl(line) != game->x_map)
-			return ;
-		game->y_map += 1;
+			return (map_dim);
+		if (map_dim.y == 0)
+			map_dim.x = ft_strlen_no_endl(line);
+		if ((int)ft_strlen_no_endl(line) != map_dim.x)
+			return (map_dim);
+		map_dim.y += 1;
 	}
 	close(fd);
-	return ;
+	return (map_dim);
 }
 
 char	*del_endl(char *str)
@@ -64,20 +65,21 @@ char	*del_endl(char *str)
 	return (new);
 }
 
-void	map_to_tab(t_game *game)
+char	**map_to_tab(t_game *game)
 {
 	int			fd;
 	int			i;
+	char		**map;
 
-	game->map = malloc(game->y_map * game->x_map);
+	map = malloc(game->map_dim.y * game->map_dim.x);
 	fd = open(game->map_path, O_RDONLY);
 	i = 0;
-	while (i < game->y_map)
+	while (i < game->map_dim.y)
 	{
-		game->map[i] = del_endl(get_next_line(fd));
+		map[i] = del_endl(get_next_line(fd));
 		i++;
 	}
-	game->map[i] = (void *)0;
+	map[i] = (void *)0;
 	close(fd);
-	return ;
+	return (map);
 }

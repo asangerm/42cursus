@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/05 20:13:33 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:04:25 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,48 @@
 # include "../libft/src/libft.h"
 # include "../minilibx-linux/mlx.h"
 
+# define BEDROCK "./textures/bedrock64.xpm"
+# define STEVE "./textures/steve_prof2.xpm"
+# define DIAMOND "./textures/diamond.xpm"
+# define DIRT "./textures/dirt64.xpm"
+# define PORTAL "./textures/nether_portal64.xpm"
+
+#define K_UP 119
+#define K_DOWN 115
+#define K_LEFT 97
+#define K_RIGHT 100
+
+typedef struct s_axes
+{
+	int	x;
+	int	y;
+}			t_axes;
+
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
 	char	**map;
 	char	*map_path;
-	int		x_map;
-	int		y_map;
+	t_axes	map_dim;
 	int		count;
-	int		x_pos_p;
-	int		y_pos_p;	
-}				t_game;
+	t_axes	p_pos;
+}		t_game;
 
 typedef struct s_img
 {
 	void	*img;
-	int		x_img;
-	int		y_img;
+	t_axes	img_dim;
 	char	*texture;
-	int		x_pos;
-	int		y_pos;
+	t_axes	img_pos;
 	char	*data;
 	int		endian;
 	int		bpp;
 	int		size_line;
 }			t_img;
 
-void	map_size(t_game *game);
-void	map_to_tab(t_game *game);
+t_axes	map_size(char *path);
+char	**map_to_tab(t_game *game);
 void	display_map(t_game *game);
 int		key_hook(int keybind, t_game *game);
 void	merge_img(t_img *img, t_img *fg, t_game *game);
