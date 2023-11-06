@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 15:35:32 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:00:46 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,27 @@ static int	check_args(int argc, char **argv)
 	return (1);
 }
 
+int	nb_char(t_game *game, char c)
+{
+	t_axes	i;
+	int		count;
+
+	i.y = 0;
+	count = 0;
+	while (i.y < game->map_dim.y)
+	{
+		i.x = 0;
+		while (i.x < game->map_dim.x)
+		{
+			if (game->map[i.y][i.x] == c)
+				count++;
+			i.x++;
+		}
+		i.y++;
+	}
+	return (count);
+}
+
 static void	game_init(t_game *game)
 {
 	game->mlx = NULL;
@@ -39,6 +60,7 @@ static void	game_init(t_game *game)
 	game->map_path = NULL;
 	game->map_dim.x = 0;
 	game->map_dim.y = 0;
+	game->nb_diamond = 0;
 	game->count = 0;
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
@@ -61,6 +83,7 @@ int	main(int argc, char **argv)
 	if (!game.win)
 		return (0);
 	game.map = map_to_tab(&game);
+	game.nb_diamond = nb_char(&game, 'C');
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop(game.mlx);

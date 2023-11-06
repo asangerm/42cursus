@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 17:12:46 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:04:35 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,97 +34,21 @@ void	coords_p(t_game *game)
 	}
 }
 
-void	reload()
+void	move(t_game *game, t_axes new_pos)
 {
-	t_img	b_img;
-	t_img	n_img;
-
-
-}
-
-void	move_up(t_game *game)
-{
-	t_img	b_img;
-	t_img	n_img;
-	t_axes	new_pos;
-
-	coords_p(game);
-	new_pos.y = game->p_pos.y - 1;
-	new_pos.x = game->p_pos.x;
-	if (0 <= game->p_pos.y - 1 && game->p_pos.y - 1 < game->map_dim.y)
+	if (game->map[new_pos.y][new_pos.x] == '0')
+		reload(game, new_pos);
+	else if (game->map[new_pos.y][new_pos.x] == 'C')
 	{
-		if (game->map[game->p_pos.y - 1][game->p_pos.x] == '0')
-		{
-			game->map[game->p_pos.y - 1][game->p_pos.x] = 'P';
-			game->map[game->p_pos.y][game->p_pos.x] = '0';
-			b_img.img_pos = game->p_pos;
-			n_img.img_pos.x = game->p_pos.x;
-			n_img.img_pos.y = game->p_pos.y - 1;
-			print_img(&b_img, DIRT, game);
-			overlay_img(&n_img, DIRT, STEVE, game);
-		}
+		game->nb_diamond--;
+		reload(game, new_pos);
 	}
-}
-
-void	move_down(t_game *game)
-{
-	t_img	b_img;
-	t_img	n_img;
-
-	coords_p(game);
-	if (0 <= game->p_pos.y + 1 && game->p_pos.y + 1 < game->map_dim.y)
+	else if(game->map[new_pos.y][new_pos.x] == 'E')
 	{
-		if (game->map[game->p_pos.y + 1][game->p_pos.x] == '0')
+		if (game->nb_diamond == 0)
 		{
-			game->map[game->p_pos.y + 1][game->p_pos.x] = 'P';
-			game->map[game->p_pos.y][game->p_pos.x] = '0';
-			b_img.img_pos = game->p_pos;
-			n_img.img_pos.x = game->p_pos.x;
-			n_img.img_pos.y = (game->p_pos.y + 1);
-			print_img(&b_img, DIRT, game);
-			overlay_img(&n_img, DIRT, STEVE, game);
-		}
-	}
-}
-
-void	move_left(t_game *game)
-{
-	t_img	b_img;
-	t_img	n_img;
-
-	coords_p(game);
-	if (0 <= game->p_pos.x - 1 && game->p_pos.x - 1 < game->map_dim.x)
-	{
-		if (game->map[game->p_pos.y][game->p_pos.x - 1] == '0')
-		{
-			game->map[game->p_pos.y][game->p_pos.x - 1] = 'P';
-			game->map[game->p_pos.y][game->p_pos.x] = '0';
-			b_img.img_pos = game->p_pos;
-			n_img.img_pos.x = (game->p_pos.x - 1);
-			n_img.img_pos.y = game->p_pos.y;
-			print_img(&b_img, DIRT, game);
-			overlay_img(&n_img, DIRT, STEVE, game);
-		}
-	}
-}
-
-void	move_right(t_game *game)
-{
-	t_img	b_img;
-	t_img	n_img;
-
-	coords_p(game);
-	if (0 <= game->p_pos.x + 1 && game->p_pos.x + 1 < game->map_dim.x)
-	{
-		if (game->map[game->p_pos.y][game->p_pos.x + 1] == '0')
-		{
-			game->map[game->p_pos.y][game->p_pos.x + 1] = 'P';
-			game->map[game->p_pos.y][game->p_pos.x] = '0';
-			b_img.img_pos = game->p_pos;
-			n_img.img_pos.x = (game->p_pos.x + 1);
-			n_img.img_pos.y = game->p_pos.y;
-			print_img(&b_img, DIRT, game);
-			overlay_img(&n_img, DIRT, STEVE, game);
+			ft_printf("Bravo\n");
+			free(game->mlx);
 		}
 	}
 }
@@ -140,5 +64,7 @@ int	key_hook(int keybind, t_game *game)
 		move_left(game);
 	if (keybind == K_RIGHT)
 		move_right(game);
+	ft_printf("move nb = %d\n", game->count);
+	ft_printf("nb diamond = %d\n", game->nb_diamond);
 	return (0);
 }

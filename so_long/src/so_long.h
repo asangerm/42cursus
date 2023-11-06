@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 16:04:25 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:56:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 # include "../libft/src/libft.h"
 # include "../minilibx-linux/mlx.h"
 
-# define BEDROCK "./textures/bedrock64.xpm"
-# define STEVE "./textures/steve_prof2.xpm"
+# define BEDROCK "./textures/bedrock.xpm"
+# define STEVE "./textures/steve.xpm"
 # define DIAMOND "./textures/diamond.xpm"
-# define DIRT "./textures/dirt64.xpm"
-# define PORTAL "./textures/nether_portal64.xpm"
+# define DIRT "./textures/dirt.xpm"
+# define PORTAL "./textures/portal.xpm"
 
-#define K_UP 119
-#define K_DOWN 115
-#define K_LEFT 97
-#define K_RIGHT 100
+# define K_UP 119
+# define K_DOWN 115
+# define K_LEFT 97
+# define K_RIGHT 100
 
 typedef struct s_axes
 {
@@ -43,6 +43,7 @@ typedef struct s_game
 	char	**map;
 	char	*map_path;
 	t_axes	map_dim;
+	int		nb_diamond;
 	int		count;
 	t_axes	p_pos;
 }		t_game;
@@ -60,9 +61,16 @@ typedef struct s_img
 }			t_img;
 
 t_axes	map_size(char *path);
-char	**map_to_tab(t_game *game);
+void	move_up(t_game *game);
+void	coords_p(t_game *game);
+void	move_down(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
 void	display_map(t_game *game);
+char	**map_to_tab(t_game *game);
+void	move(t_game *game, t_axes new_pos);
 int		key_hook(int keybind, t_game *game);
+void	reload(t_game *game, t_axes new_pos);
 void	merge_img(t_img *img, t_img *fg, t_game *game);
 void	print_img(t_img *img, char *path, t_game *game);
 void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game);
