@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 20:04:35 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:56:05 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,18 @@ void	move(t_game *game, t_axes new_pos)
 		game->nb_diamond--;
 		reload(game, new_pos);
 	}
-	else if(game->map[new_pos.y][new_pos.x] == 'E')
+	else if (game->map[new_pos.y][new_pos.x] == 'E')
 	{
 		if (game->nb_diamond == 0)
 		{
 			ft_printf("Bravo\n");
-			free(game->mlx);
+			end(game);
 		}
 	}
 }
 
 int	key_hook(int keybind, t_game *game)
 {
-	game->count += 1;
 	if (keybind == K_UP)
 		move_up(game);
 	if (keybind == K_DOWN)
@@ -64,7 +63,7 @@ int	key_hook(int keybind, t_game *game)
 		move_left(game);
 	if (keybind == K_RIGHT)
 		move_right(game);
-	ft_printf("move nb = %d\n", game->count);
-	ft_printf("nb diamond = %d\n", game->nb_diamond);
+	if (keybind == K_ECHAP)
+		end(game);
 	return (0);
 }

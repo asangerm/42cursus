@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 19:00:46 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:39:43 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static void	game_init(t_game *game)
 	game->count = 0;
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
+}
+
+void	end(t_game *game)
+{
+	free(game->map);
+	mlx_loop_end(game->mlx);
 }
 
 int	main(int argc, char **argv)

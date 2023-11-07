@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 19:56:41 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:54:59 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define K_DOWN 115
 # define K_LEFT 97
 # define K_RIGHT 100
+# define K_ECHAP 65307
 
 typedef struct s_axes
 {
@@ -60,6 +61,7 @@ typedef struct s_img
 	int		size_line;
 }			t_img;
 
+void	end(t_game *game);
 t_axes	map_size(char *path);
 void	move_up(t_game *game);
 void	coords_p(t_game *game);
