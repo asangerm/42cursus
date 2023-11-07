@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 15:39:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:09:23 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (0);
-	game.map_dim = map_size(game.map_path);
+	map_size(&game);
 	game.win = mlx_new_window(game.mlx, game.map_dim.x * 64,
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 16:15:04 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:17:43 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,24 @@ static size_t	ft_strlen_no_endl(char *str)
 	return (len);
 }
 
-t_axes	map_size(char *path)
+void	map_size(t_game *game)
 {
 	char	*line;
 	int		fd;
-	t_axes	map_dim;
 
-	fd = open(path, O_RDONLY);
-	map_dim.y = 0;
-	map_dim.x = 0;
-	while (line != NULL || map_dim.y == 0)
+	fd = open(game->map_path, O_RDONLY);
+	while ((line = get_next_line(fd)) != NULL || game->map_dim.y == 0)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			return (map_dim);
-		if (map_dim.y == 0)
-			map_dim.x = ft_strlen_no_endl(line);
-		if ((int)ft_strlen_no_endl(line) != map_dim.x)
-			return (map_dim);
-		map_dim.y += 1;
+		if (game->map_dim.y == 0)
+			game->map_dim.x = ft_strlen_no_endl(line);
+		if ((int)ft_strlen_no_endl(line) != game->map_dim.x)
+			{
+				ft_printf("Map not compliant");
+				end(game);
+			}
+		game->map_dim.y += 1;
 	}
 	close(fd);
-	return (map_dim);
 }
 
 char	*del_endl(char *str)

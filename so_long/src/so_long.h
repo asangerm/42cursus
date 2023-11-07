@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 15:54:59 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:09:08 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_img
 }			t_img;
 
 void	end(t_game *game);
-t_axes	map_size(char *path);
+void	map_size(t_game *game);
 void	move_up(t_game *game);
 void	coords_p(t_game *game);
 void	move_down(t_game *game);
