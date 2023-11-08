@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 17:09:26 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:24:23 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	coords_p(t_game *game);
 void	move_down(t_game *game);
 void	move_left(t_game *game);
 char	**str_to_tab(char *str);
+void	check_map(t_game *game);
 void	move_right(t_game *game);
 void	display_map(t_game *game);
 char	*file_to_str(t_game *game);
