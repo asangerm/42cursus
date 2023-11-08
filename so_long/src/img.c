@@ -6,88 +6,77 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/06 16:41:30 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:51:13 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_img(t_img *img, char *path, t_game *game)
+void	print_img(t_img text, t_game *game, t_axes i)
 {
-	img->texture = path;
-	img->img = mlx_xpm_file_to_image(game->mlx, img->texture,
-			&img->img_dim.x, &img->img_dim.y);
-	mlx_put_image_to_window(game->mlx, game->win, img->img,
-		img->img_pos.x * 64, img->img_pos.y * 64);
+	mlx_put_image_to_window(game->mlx, game->win, text.img,
+		i.x * 64, i.y * 64);
 }
 
-void	merge_img(t_img *img, t_img *fg, t_game *game)
+void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i)
 {
-	int	x;
-	int	y;
+	t_axes	j;
 
-	y = 0;
-	while (y < img->img_dim.y)
+	j.y = 0;
+	while (j.y < bg.h)
 	{
-		x = 0;
-		while (x < img->img_dim.x)
+		j.x = 0;
+		while (j.x < bg.w)
 		{
-			if (fg->data[(y * fg->size_line) + (x * (fg->bpp / 8))] != 0)
+			if (fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8))] != 0)
 			{
-				img->data[(y * img->size_line) + (x * (img->bpp / 8))]
-					= fg->data[(y * fg->size_line) + (x * (fg->bpp / 8))];
-				img->data[(y * img->size_line) + (x * (img->bpp / 8) + 1)]
-					= fg->data[(y * fg->size_line) + (x * (fg->bpp / 8) + 1)];
-				img->data[(y * img->size_line) + (x * (img->bpp / 8) + 2)]
-					= fg->data[(y * fg->size_line) + (x * (fg->bpp / 8) + 2)];
+				bg.data[(j.y * bg.size_line) + (j.x * (bg.bpp / 8))]
+					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8))];
+				 bg.data[(j.y *  bg.size_line) + (j.x * ( bg.bpp / 8) + 1)]
+					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8) + 1)];
+				 bg.data[(j.y *  bg.size_line) + (j.x * ( bg.bpp / 8) + 2)]
+					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8) + 2)];
 			}
-			x++;
+			j.x++;
 		}
-		y++;
+		j.y++;
 	}
-	mlx_put_image_to_window(game->mlx, game->win, img->img,
-		img->img_pos.x * 64, img->img_pos.y * 64);
+	print_img(bg, game, i);
+	mlx_destroy_image(game->mlx, bg.img);
 }
 
-void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game)
+void	overlay_img(t_img fg, t_game *game, t_axes i)
 {
-	t_img	fg;
+	t_img	back;
 
-	fg.texture = pathf;
-	fg.img = mlx_xpm_file_to_image(game->mlx, fg.texture,
-			&fg.img_dim.x, &fg.img_dim.y);
-	fg.img_pos = img->img_pos;
+	back.img = mlx_xpm_file_to_image(game->mlx, DIRT, &back.w, &back.h);
 	fg.data = mlx_get_data_addr(fg.img, &fg.bpp, &fg.size_line, &fg.endian);
-	img->texture = pathb;
-	img->img = mlx_xpm_file_to_image(game->mlx, img->texture,
-			&img->img_dim.x, &img->img_dim.y);
-	img->data = mlx_get_data_addr(img->img, &img->bpp,
-			&img->size_line, &img->endian);
-	merge_img(img, &fg, game);
+	back.data = mlx_get_data_addr(back.img, &back.bpp, &back.size_line, &back.endian);
+	merge_img(back, fg, game, i);
 }
 
 void	display_map(t_game *game)
 {
-	t_img	img;
+	t_axes	i;
 
-	img.img_pos.y = 0;
-	while (img.img_pos.y < game->map_dim.y)
+	i.y = 0;
+	while (i.y < game->map_dim.y)
 	{
-		img.img_pos.x = 0;
-		while (img.img_pos.x < game->map_dim.x)
+		i.x = 0;
+		while (i.x < game->map_dim.x)
 		{
-			if (game->map[img.img_pos.y][img.img_pos.x] == '1')
-				print_img(&img, BEDROCK, game);
-			else if (game->map[img.img_pos.y][img.img_pos.x] == '0')
-				print_img(&img, DIRT, game);
-			else if (game->map[img.img_pos.y][img.img_pos.x] == 'E')
-				print_img(&img, PORTAL, game);
-			else if (game->map[img.img_pos.y][img.img_pos.x] == 'P')
-				overlay_img(&img, DIRT, STEVE, game);
-			else if (game->map[img.img_pos.y][img.img_pos.x] == 'C')
-				overlay_img(&img, DIRT, DIAMOND, game);
-			img.img_pos.x++;
+			if (game->map[i.y][i.x] == '1')
+				print_img(game->text.bedrock, game, i);
+			else if (game->map[i.y][i.x] == '0')
+				print_img(game->text.dirt, game, i);
+			else if (game->map[i.y][i.x] == 'E')
+				print_img(game->text.portal, game, i);
+			else if (game->map[i.y][i.x] == 'P')
+				overlay_img(game->text.steve, game, i);
+			else if (game->map[i.y][i.x] == 'C')
+				overlay_img(game->text.diamond, game, i);
+			i.x++;
 		}
-		img.img_pos.y++;
+		i.y++;
 	}
 }

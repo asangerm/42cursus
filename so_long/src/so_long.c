@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 17:09:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:33:53 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,26 @@ int	nb_char(t_game *game, char c)
 
 static void	game_init(t_game *game)
 {
-	game->mlx = NULL;
 	game->win = NULL;
 	game->map = NULL;
-	game->map_path = NULL;
 	game->map_dim.x = 0;
 	game->map_dim.y = 0;
 	game->nb_diamond = 0;
 	game->count = 0;
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
+	ft_printf("hey\n");
+	game->text.dirt.img = mlx_xpm_file_to_image(game->mlx, DIRT,
+			&game->text.dirt.w,&game->text.dirt.h);
+	ft_printf("hey\n");
+	game->text.bedrock.img = mlx_xpm_file_to_image(game->mlx, BEDROCK,
+			&game->text.bedrock.w, &game->text.bedrock.h);
+	game->text.steve.img = mlx_xpm_file_to_image(game->mlx, STEVE,
+			&game->text.steve.w, &game->text.steve.h);
+	game->text.diamond.img = mlx_xpm_file_to_image(game->mlx, DIAMOND,
+			&game->text.diamond.w, &game->text.diamond.h);
+	game->text.portal.img = mlx_xpm_file_to_image(game->mlx, PORTAL,
+			&game->text.portal.w, &game->text.portal.h);
 }
 
 void	end(t_game *game)
@@ -79,6 +89,11 @@ void	end(t_game *game)
 			i++;
 		}
 		free(game->map);
+		mlx_destroy_image(game->mlx, game->text.dirt.img);
+		mlx_destroy_image(game->mlx, game->text.bedrock.img);
+		mlx_destroy_image(game->mlx, game->text.steve.img);
+		mlx_destroy_image(game->mlx, game->text.diamond.img);
+		mlx_destroy_image(game->mlx, game->text.portal.img);
 		mlx_destroy_window(game->mlx, game->win);
 	}
 	mlx_destroy_display(game->mlx);
@@ -92,9 +107,9 @@ int	main(int argc, char **argv)
 
 	if (!check_args(argc, argv))
 		return (0);
-	game_init(&game);
 	game.map_path = argv[1];
 	game.mlx = mlx_init();
+	game_init(&game);
 	if (!game.mlx)
 		return (0);
 	map_size(&game);

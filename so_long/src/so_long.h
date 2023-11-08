@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 17:09:08 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:48:51 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,38 @@ typedef struct s_axes
 	int	y;
 }			t_axes;
 
+typedef struct s_img
+{
+	void	*img;
+	int		h;
+	int		w;
+	char	*data;
+	int		endian;
+	int		bpp;
+	int		size_line;
+}			t_img;
+
+typedef struct s_text
+{
+	t_img	dirt;
+	t_img	bedrock;
+	t_img	steve;
+	t_img	diamond;
+	t_img	portal;
+}			t_text;
+
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
 	char	**map;
 	char	*map_path;
+	t_text	text;
 	t_axes	map_dim;
 	int		nb_diamond;
 	int		count;
 	t_axes	p_pos;
 }		t_game;
-
-typedef struct s_img
-{
-	void	*img;
-	t_axes	img_dim;
-	char	*texture;
-	t_axes	img_pos;
-	char	*data;
-	int		endian;
-	int		bpp;
-	int		size_line;
-}			t_img;
 
 void	end(t_game *game);
 void	map_size(t_game *game);
@@ -73,8 +82,8 @@ char	**map_to_tab(t_game *game);
 void	move(t_game *game, t_axes new_pos);
 int		key_hook(int keybind, t_game *game);
 void	reload(t_game *game, t_axes new_pos);
-void	merge_img(t_img *img, t_img *fg, t_game *game);
-void	print_img(t_img *img, char *path, t_game *game);
-void	overlay_img(t_img *img, char *pathb, char *pathf, t_game *game);
+void	print_img(t_img text, t_game *game, t_axes i);
+void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i);
+void	overlay_img(t_img fg, t_game *game, t_axes i);
 
 #endif
