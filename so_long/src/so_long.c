@@ -68,8 +68,22 @@ static void	game_init(t_game *game)
 
 void	end(t_game *game)
 {
-	free(game->map);
-	mlx_loop_end(game->mlx);
+	int		i;
+
+	i = 0;
+	if (game->map != NULL)
+	{
+		while (game->map[i] != NULL)
+		{
+			free(game->map[i]);
+			i++;
+		}
+		free(game->map);
+		mlx_destroy_window(game->mlx, game->win);
+	}
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	exit(0);
 }
 
 int	main(int argc, char **argv)
