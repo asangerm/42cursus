@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 03:33:53 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:12:57 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ static void	game_init(t_game *game)
 	game->count = 0;
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
-	ft_printf("hey\n");
 	game->text.dirt.img = mlx_xpm_file_to_image(game->mlx, DIRT,
-			&game->text.dirt.w,&game->text.dirt.h);
-	ft_printf("hey\n");
+			&game->text.dirt.w, &game->text.dirt.h);
 	game->text.bedrock.img = mlx_xpm_file_to_image(game->mlx, BEDROCK,
 			&game->text.bedrock.w, &game->text.bedrock.h);
 	game->text.steve.img = mlx_xpm_file_to_image(game->mlx, STEVE,
@@ -112,12 +110,12 @@ int	main(int argc, char **argv)
 	game_init(&game);
 	if (!game.mlx)
 		return (0);
-	map_size(&game);
+	game.map = str_to_tab(file_to_str(&game));
+	game.map_dim = map_size(&game);
 	game.win = mlx_new_window(game.mlx, game.map_dim.x * 64,
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
-	game.map = map_to_tab(&game);
 	game.nb_diamond = nb_char(&game, 'C');
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 03:48:51 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:09:26 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,21 @@ typedef struct s_game
 }		t_game;
 
 void	end(t_game *game);
-void	map_size(t_game *game);
 void	move_up(t_game *game);
+t_axes	map_size(t_game *game);
 void	coords_p(t_game *game);
 void	move_down(t_game *game);
 void	move_left(t_game *game);
+char	**str_to_tab(char *str);
 void	move_right(t_game *game);
 void	display_map(t_game *game);
-char	**map_to_tab(t_game *game);
+char	*file_to_str(t_game *game);
+void	ft_error(char *str, t_game *game);
 void	move(t_game *game, t_axes new_pos);
 int		key_hook(int keybind, t_game *game);
 void	reload(t_game *game, t_axes new_pos);
 void	print_img(t_img text, t_game *game, t_axes i);
-void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i);
 void	overlay_img(t_img fg, t_game *game, t_axes i);
+void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i);
 
 #endif

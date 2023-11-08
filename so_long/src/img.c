@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 03:51:13 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:12:27 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i)
 			{
 				bg.data[(j.y * bg.size_line) + (j.x * (bg.bpp / 8))]
 					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8))];
-				 bg.data[(j.y *  bg.size_line) + (j.x * ( bg.bpp / 8) + 1)]
+				bg.data[(j.y * bg.size_line) + (j.x * (bg.bpp / 8) + 1)]
 					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8) + 1)];
-				 bg.data[(j.y *  bg.size_line) + (j.x * ( bg.bpp / 8) + 2)]
+				bg.data[(j.y * bg.size_line) + (j.x * (bg.bpp / 8) + 2)]
 					= fg.data[(j.y * fg.size_line) + (j.x * (fg.bpp / 8) + 2)];
 			}
 			j.x++;
@@ -51,7 +51,8 @@ void	overlay_img(t_img fg, t_game *game, t_axes i)
 
 	back.img = mlx_xpm_file_to_image(game->mlx, DIRT, &back.w, &back.h);
 	fg.data = mlx_get_data_addr(fg.img, &fg.bpp, &fg.size_line, &fg.endian);
-	back.data = mlx_get_data_addr(back.img, &back.bpp, &back.size_line, &back.endian);
+	back.data = mlx_get_data_addr(back.img, &back.bpp, &back.size_line,
+			&back.endian);
 	merge_img(back, fg, game, i);
 }
 

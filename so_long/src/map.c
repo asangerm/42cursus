@@ -6,76 +6,81 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:55:07 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 17:17:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:10:56 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static size_t	ft_strlen_no_endl(char *str)
+void	ft_error(char *str, t_game *game)
 {
-	size_t	len;
-
-	len = ft_strlen(str);
-	if (ft_strchr(str, '\n') != NULL)
-		return (len - 1);
-	return (len);
+	ft_printf("%s\n", str);
+	end(game);
 }
 
-void	map_size(t_game *game)
+static int	get_file_size(t_game *game)
 {
-	char	*line;
 	int		fd;
+	int		size;
+	char	c;
 
 	fd = open(game->map_path, O_RDONLY);
-	while ((line = get_next_line(fd)) != NULL || game->map_dim.y == 0)
-	{
-		if (game->map_dim.y == 0)
-			game->map_dim.x = ft_strlen_no_endl(line);
-		if ((int)ft_strlen_no_endl(line) != game->map_dim.x)
-			{
-				ft_printf("Map not compliant");
-				end(game);
-			}
-		game->map_dim.y += 1;
-	}
+	if (fd == -1)
+		ft_error("Error open file", game);
+	size = 0;
+	while (read(fd, &c, 1) > 0)
+		size++;
 	close(fd);
+	return (size);
 }
 
-char	*del_endl(char *str)
+char	*file_to_str(t_game *game)
 {
-	char	*new;
+	int		size;
+	int		fd;
 	int		i;
+	char	c;
+	char	*str;
 
-	if (!ft_strchr(str, '\n'))
-		return (str);
-	new = malloc(sizeof(char) * ft_strlen(str));
 	i = 0;
-	while (str[i])
+	size = get_file_size(game);
+	fd = open(game->map_path, O_RDONLY);
+	if (fd == -1)
+		ft_error("Error open file", game);
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+		ft_error("Error malloc str", game);
+	while (i < size)
 	{
-		new[i] = str[i];
+		read(fd, &c, 1);
+		str[i] = c;
 		i++;
 	}
-	new[i] = '\0';
-	free(str);
-	return (new);
+	str[i] = '\0';
+	close(fd);
+	return (str);
 }
 
-char	**map_to_tab(t_game *game)
+char	**str_to_tab(char *str)
 {
-	int			fd;
-	int			i;
-	char		**map;
+	char	**map;
 
-	map = malloc(game->map_dim.y * game->map_dim.x);
-	fd = open(game->map_path, O_RDONLY);
-	i = 0;
-	while (i < game->map_dim.y)
-	{
-		map[i] = del_endl(get_next_line(fd));
-		i++;
-	}
-	map[i] = (void *)0;
-	close(fd);
+	map = ft_split(str, '\n');
+	free(str);
 	return (map);
+}
+
+t_axes	map_size(t_game *game)
+{
+	t_axes	i;
+
+	i.y = 0;
+	i.x = ft_strlen(game->map[i.y]);
+	while (game->map[i.y])
+	{
+		if ((int)ft_strlen(game->map[i.y]) != i.x)
+			ft_error("Error map bad shape", game);
+		i.y++;
+	}
+	return (i);
 }
