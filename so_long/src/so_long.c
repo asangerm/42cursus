@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:29:51 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:48:37 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	game_init(t_game *game)
 	game->count = 0;
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
+	game->c_pos = NULL;
 	game->text.dirt.img = mlx_xpm_file_to_image(game->mlx, DIRT,
 			&game->text.dirt.w, &game->text.dirt.h);
 	game->text.bedrock.img = mlx_xpm_file_to_image(game->mlx, BEDROCK,
@@ -87,14 +88,15 @@ void	end(t_game *game)
 			i++;
 		}
 		free(game->map);
-		free(game->c_pos);
-		mlx_destroy_image(game->mlx, game->text.dirt.img);
-		mlx_destroy_image(game->mlx, game->text.bedrock.img);
-		mlx_destroy_image(game->mlx, game->text.steve.img);
-		mlx_destroy_image(game->mlx, game->text.diamond.img);
-		mlx_destroy_image(game->mlx, game->text.portal.img);
-		mlx_destroy_window(game->mlx, game->win);
 	}
+	free(game->c_pos);	
+	mlx_destroy_image(game->mlx, game->text.dirt.img);
+	mlx_destroy_image(game->mlx, game->text.bedrock.img);
+	mlx_destroy_image(game->mlx, game->text.steve.img);
+	mlx_destroy_image(game->mlx, game->text.diamond.img);
+	mlx_destroy_image(game->mlx, game->text.portal.img);
+	if (game->win != NULL)
+		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	exit(0);
