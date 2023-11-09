@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:24:46 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:30:18 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,11 @@ int	key_hook(int keybind, t_game *game)
 		move_right(game);
 	if (keybind == K_ECHAP)
 		end(game);
+	return (0);
+}
+
+int	close_window(t_game *game)
+{
+	end(game);
 	return (0);
 }
