@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:48:37 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:51:01 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	end(t_game *game)
 		}
 		free(game->map);
 	}
-	free(game->c_pos);	
+	free(game->c_pos);
 	mlx_destroy_image(game->mlx, game->text.dirt.img);
 	mlx_destroy_image(game->mlx, game->text.bedrock.img);
 	mlx_destroy_image(game->mlx, game->text.steve.img);
