@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/07 15:56:05 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:24:46 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	move(t_game *game, t_axes new_pos)
 	{
 		if (game->nb_diamond == 0)
 		{
-			ft_printf("Bravo\n");
+			ft_printf("Tu a gagné!\n");
 			end(game);
 		}
 	}

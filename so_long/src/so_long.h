@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 17:24:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:12:02 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_game
 	int		nb_diamond;
 	int		count;
 	t_axes	p_pos;
+	t_axes	e_pos;
+	t_axes	*c_pos;
 }		t_game;
 
 void	end(t_game *game);
@@ -81,12 +83,14 @@ void	check_map(t_game *game);
 void	move_right(t_game *game);
 void	display_map(t_game *game);
 char	*file_to_str(t_game *game);
+int		nb_char(t_game *game, char c);
 void	ft_error(char *str, t_game *game);
 void	move(t_game *game, t_axes new_pos);
 int		key_hook(int keybind, t_game *game);
 void	reload(t_game *game, t_axes new_pos);
 void	print_img(t_img text, t_game *game, t_axes i);
 void	overlay_img(t_img fg, t_game *game, t_axes i);
+int		path_exist(t_axes start, t_axes end, t_game *game);
 void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i);
 
 #endif

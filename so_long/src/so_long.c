@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 17:30:48 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:24:14 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int	check_args(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Invalid number of arguments\n");
+		ft_printf("Error invalid number of arguments\n");
 		return (0);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		ft_printf("Invalid argument\n");
+		ft_printf("Error invalid argument\n");
 		return (0);
 	}
 	close(fd);
@@ -87,6 +87,7 @@ void	end(t_game *game)
 			i++;
 		}
 		free(game->map);
+		free(game->c_pos);
 		mlx_destroy_image(game->mlx, game->text.dirt.img);
 		mlx_destroy_image(game->mlx, game->text.bedrock.img);
 		mlx_destroy_image(game->mlx, game->text.steve.img);
@@ -116,8 +117,9 @@ int	main(int argc, char **argv)
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
-	check_map(&game);
 	game.nb_diamond = nb_char(&game, 'C');
+	game.c_pos = malloc(sizeof(t_axes) * game.nb_diamond);
+	check_map(&game);
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop(game.mlx);
