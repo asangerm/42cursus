@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 14:47:04 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:44:39 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	zombie_move(t_game *game);
 char	*file_to_str(t_game *game);
 int		close_window(t_game *game);
 void	display_moves(t_game *game);
+int		is_in(char c, char *charset);
 int		nb_char(t_game *game, char c);
 void	ft_error(char *str, t_game *game);
 void	move(t_game *game, t_axes new_pos);
