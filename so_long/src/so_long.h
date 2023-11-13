@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:30:53 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:13:10 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define DIAMOND "./textures/diamond.xpm"
 # define DIRT "./textures/dirt.xpm"
 # define PORTAL "./textures/portal.xpm"
+# define BOOK "./textures/book.xpm"
 
 # define K_UP 119
 # define K_DOWN 115
@@ -42,6 +43,7 @@ typedef struct s_img
 	void	*img;
 	int		h;
 	int		w;
+	char	*path;
 	char	*data;
 	int		endian;
 	int		bpp;
@@ -55,6 +57,7 @@ typedef struct s_text
 	t_img	steve;
 	t_img	diamond;
 	t_img	portal;
+	t_img	book;
 }			t_text;
 
 typedef struct s_game
@@ -80,18 +83,21 @@ void	move_down(t_game *game);
 void	move_left(t_game *game);
 char	**str_to_tab(char *str);
 void	check_map(t_game *game);
+void	game_init(t_game *game);
+void	image_init(t_game *game);
 void	move_right(t_game *game);
 void	display_map(t_game *game);
 char	*file_to_str(t_game *game);
 int		close_window(t_game *game);
+void	display_moves(t_game *game);
 int		nb_char(t_game *game, char c);
 void	ft_error(char *str, t_game *game);
 void	move(t_game *game, t_axes new_pos);
 int		key_hook(int keybind, t_game *game);
 void	reload(t_game *game, t_axes new_pos);
 void	print_img(t_img text, t_game *game, t_axes i);
-void	overlay_img(t_img fg, t_game *game, t_axes i);
 int		path_exist(t_axes start, t_axes end, t_game *game);
 void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i);
+void	overlay_img(t_img fg, t_img bg, t_game *game, t_axes i);
 
 #endif

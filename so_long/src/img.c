@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 17:12:27 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:14:22 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	merge_img(t_img bg, t_img fg, t_game *game, t_axes i)
 	mlx_destroy_image(game->mlx, bg.img);
 }
 
-void	overlay_img(t_img fg, t_game *game, t_axes i)
+void	overlay_img(t_img fg, t_img bg, t_game *game, t_axes i)
 {
 	t_img	back;
 
-	back.img = mlx_xpm_file_to_image(game->mlx, DIRT, &back.w, &back.h);
+	back.img = mlx_xpm_file_to_image(game->mlx, bg.path, &back.w, &back.h);
 	fg.data = mlx_get_data_addr(fg.img, &fg.bpp, &fg.size_line, &fg.endian);
 	back.data = mlx_get_data_addr(back.img, &back.bpp, &back.size_line,
 			&back.endian);
@@ -73,9 +73,9 @@ void	display_map(t_game *game)
 			else if (game->map[i.y][i.x] == 'E')
 				print_img(game->text.portal, game, i);
 			else if (game->map[i.y][i.x] == 'P')
-				overlay_img(game->text.steve, game, i);
+				overlay_img(game->text.steve, game->text.dirt, game, i);
 			else if (game->map[i.y][i.x] == 'C')
-				overlay_img(game->text.diamond, game, i);
+				overlay_img(game->text.diamond, game->text.dirt, game, i);
 			i.x++;
 		}
 		i.y++;

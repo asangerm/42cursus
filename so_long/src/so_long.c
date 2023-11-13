@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:51:01 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:11:42 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,6 @@ int	nb_char(t_game *game, char c)
 	return (count);
 }
 
-static void	game_init(t_game *game)
-{
-	game->win = NULL;
-	game->map = NULL;
-	game->map_dim.x = 0;
-	game->map_dim.y = 0;
-	game->nb_diamond = 0;
-	game->count = 0;
-	game->p_pos.x = 0;
-	game->p_pos.y = 0;
-	game->c_pos = NULL;
-	game->text.dirt.img = mlx_xpm_file_to_image(game->mlx, DIRT,
-			&game->text.dirt.w, &game->text.dirt.h);
-	game->text.bedrock.img = mlx_xpm_file_to_image(game->mlx, BEDROCK,
-			&game->text.bedrock.w, &game->text.bedrock.h);
-	game->text.steve.img = mlx_xpm_file_to_image(game->mlx, STEVE,
-			&game->text.steve.w, &game->text.steve.h);
-	game->text.diamond.img = mlx_xpm_file_to_image(game->mlx, DIAMOND,
-			&game->text.diamond.w, &game->text.diamond.h);
-	game->text.portal.img = mlx_xpm_file_to_image(game->mlx, PORTAL,
-			&game->text.portal.w, &game->text.portal.h);
-}
-
 void	end(t_game *game)
 {
 	int		i;
@@ -95,6 +72,7 @@ void	end(t_game *game)
 	mlx_destroy_image(game->mlx, game->text.steve.img);
 	mlx_destroy_image(game->mlx, game->text.diamond.img);
 	mlx_destroy_image(game->mlx, game->text.portal.img);
+	mlx_destroy_image(game->mlx, game->text.book.img);
 	if (game->win != NULL)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
@@ -119,6 +97,7 @@ int	main(int argc, char **argv)
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
+	//mlx_set_font(game.mlx, game.win, "-misc-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
 	game.nb_diamond = nb_char(&game, 'C');
 	game.c_pos = malloc(sizeof(t_axes) * game.nb_diamond);
 	check_map(&game);

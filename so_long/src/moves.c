@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:39:18 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/08 03:49:09 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:15:43 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	reload(t_game *game, t_axes new_pos)
 	game->map[new_pos.y][new_pos.x] = 'P';
 	game->map[game->p_pos.y][game->p_pos.x] = '0';
 	print_img(game->text.dirt, game, game->p_pos);
-	overlay_img(game->text.steve, game, new_pos);
+	overlay_img(game->text.steve, game->text.dirt, game, new_pos);
 	game->count += 1;
 	ft_printf("move nb = %d\n", game->count);
+	display_moves(game);
 }
 
 void	move_up(t_game *game)
