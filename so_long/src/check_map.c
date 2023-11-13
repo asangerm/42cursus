@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:56:52 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:22:46 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:24:07 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_entity(char c)
 {
-	char	charset[6];
+	char	charset[7];
 	int		i;
 
 	charset[0] = '1';
@@ -22,7 +22,8 @@ int	is_entity(char c)
 	charset[2] = 'P';
 	charset[3] = 'C';
 	charset[4] = 'E';
-	charset[5] = '\0';
+	charset[5] = 'Z';
+	charset[6] = '\0';
 	i = 0;
 	while (charset[i])
 	{
@@ -57,7 +58,7 @@ int	check_wall(t_game *game)
 	return (1);
 }
 
-void	set_entity(t_game *game, t_axes i, int *j)
+void	set_entity(t_game *game, t_axes i, int *j, int *j_z)
 {
 	coords_p(game);
 	if (game->map[i.y][i.x] == 'C')
@@ -66,6 +67,11 @@ void	set_entity(t_game *game, t_axes i, int *j)
 		(*j)++;
 		if (path_exist(game->p_pos, i, game) == 0)
 			ft_error("Error collectible unreachable", game);
+	}
+	if (game->map[i.y][i.x] == 'Z')
+	{
+		game->z_pos[*j_z] = i;
+		(*j_z)++;
 	}
 	if (game->map[i.y][i.x] == 'E')
 	{
@@ -79,15 +85,17 @@ void	get_entity_pos(t_game *game)
 {
 	t_axes		i;
 	int			j;
+	int			j_z;
 
 	i.y = 0;
 	j = 0;
+	j_z = 0;
 	while (i.y < game->map_dim.y)
 	{
 		i.x = 0;
 		while (i.x < game->map_dim.x)
 		{
-			set_entity(game, i, &j);
+			set_entity(game, i, &j, &j_z);
 			i.x++;
 		}
 		i.y++;

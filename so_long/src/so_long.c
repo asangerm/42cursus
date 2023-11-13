@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 11:11:42 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:20:10 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int	nb_char(t_game *game, char c)
 	return (count);
 }
 
+void	destroy(t_game *game)
+{
+	mlx_destroy_image(game->mlx, game->text.dirt.img);
+	mlx_destroy_image(game->mlx, game->text.bedrock.img);
+	mlx_destroy_image(game->mlx, game->text.steve.img);
+	mlx_destroy_image(game->mlx, game->text.diamond.img);
+	mlx_destroy_image(game->mlx, game->text.portal.img);
+	mlx_destroy_image(game->mlx, game->text.book.img);
+	mlx_destroy_image(game->mlx, game->text.zombie.img);
+}
+
 void	end(t_game *game)
 {
 	int		i;
@@ -67,12 +78,8 @@ void	end(t_game *game)
 		free(game->map);
 	}
 	free(game->c_pos);
-	mlx_destroy_image(game->mlx, game->text.dirt.img);
-	mlx_destroy_image(game->mlx, game->text.bedrock.img);
-	mlx_destroy_image(game->mlx, game->text.steve.img);
-	mlx_destroy_image(game->mlx, game->text.diamond.img);
-	mlx_destroy_image(game->mlx, game->text.portal.img);
-	mlx_destroy_image(game->mlx, game->text.book.img);
+	free(game->z_pos);
+	destroy(game);
 	if (game->win != NULL)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
@@ -97,9 +104,10 @@ int	main(int argc, char **argv)
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
-	//mlx_set_font(game.mlx, game.win, "-misc-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
 	game.nb_diamond = nb_char(&game, 'C');
+	game.nb_zombie = nb_char(&game, 'Z');
 	game.c_pos = malloc(sizeof(t_axes) * game.nb_diamond);
+	game.z_pos = malloc(sizeof(t_axes) * game.nb_zombie);
 	check_map(&game);
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);

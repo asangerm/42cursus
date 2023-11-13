@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:55:20 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:30:18 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:22:02 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	move(t_game *game, t_axes new_pos)
 			ft_printf("Tu a gagné!\n");
 			end(game);
 		}
+	}
+	else if (game->map[new_pos.y][new_pos.x] == 'Z')
+	{
+		ft_printf("Tu es mort\n");
+		end(game);
 	}
 }
 

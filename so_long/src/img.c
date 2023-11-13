@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 11:14:22 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:53:49 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	display_map(t_game *game)
 				overlay_img(game->text.steve, game->text.dirt, game, i);
 			else if (game->map[i.y][i.x] == 'C')
 				overlay_img(game->text.diamond, game->text.dirt, game, i);
+			else if (game->map[i.y][i.x] == 'Z')
+				overlay_img(game->text.zombie, game->text.dirt, game, i);
 			i.x++;
 		}
 		i.y++;

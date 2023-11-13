@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 11:13:10 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:47:04 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define DIRT "./textures/dirt.xpm"
 # define PORTAL "./textures/portal.xpm"
 # define BOOK "./textures/book.xpm"
+# define ZOMBIE "./textures/zombie.xpm"
 
 # define K_UP 119
 # define K_DOWN 115
@@ -58,6 +59,7 @@ typedef struct s_text
 	t_img	diamond;
 	t_img	portal;
 	t_img	book;
+	t_img	zombie;
 }			t_text;
 
 typedef struct s_game
@@ -69,9 +71,11 @@ typedef struct s_game
 	t_text	text;
 	t_axes	map_dim;
 	int		nb_diamond;
+	int		nb_zombie;
 	int		count;
 	t_axes	p_pos;
 	t_axes	e_pos;
+	t_axes	*z_pos;
 	t_axes	*c_pos;
 }		t_game;
 
@@ -87,6 +91,7 @@ void	game_init(t_game *game);
 void	image_init(t_game *game);
 void	move_right(t_game *game);
 void	display_map(t_game *game);
+void	zombie_move(t_game *game);
 char	*file_to_str(t_game *game);
 int		close_window(t_game *game);
 void	display_moves(t_game *game);

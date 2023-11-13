@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:10:51 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 11:11:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:22:28 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ void	image_init(t_game *game)
 			&game->text.portal.w, &game->text.portal.h);
 	game->text.book.img = mlx_xpm_file_to_image(game->mlx, BOOK,
 			&game->text.book.w, &game->text.book.h);
+	game->text.zombie.img = mlx_xpm_file_to_image(game->mlx, ZOMBIE,
+			&game->text.zombie.w, &game->text.zombie.h);
 	game->text.bedrock.path = BEDROCK;
 	game->text.dirt.path = DIRT;
 	game->text.steve.path = STEVE;
 	game->text.portal.path = PORTAL;
 	game->text.diamond.path = DIAMOND;
 	game->text.book.path = BOOK;
+	game->text.zombie.path = ZOMBIE;
 }
 
 void	game_init(t_game *game)
@@ -45,5 +48,6 @@ void	game_init(t_game *game)
 	game->p_pos.x = 0;
 	game->p_pos.y = 0;
 	game->c_pos = NULL;
-	image_init(game);	
+	game->z_pos = NULL;
+	image_init(game);
 }
