@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:06:44 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 15:22:43 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:59:03 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,17 @@ void	zombie_move(t_game *game)
 	coords_p(game);
 	while (i < game->nb_zombie)
 	{
-		if (game->p_pos.x < game->z_pos[i].x)
+		if (game->p_pos.x < game->z_pos[i].x &&
+			game->map[game->z_pos[i].y][game->z_pos[i].x - 1] == '0')
 			z_move_left(game, i);
-		else if (game->p_pos.x > game->z_pos[i].x)
+		else if (game->p_pos.x > game->z_pos[i].x &&
+			game->map[game->z_pos[i].y][game->z_pos[i].x + 1] == '0')
 			z_move_right(game, i);
-		else if (game->p_pos.y < game->z_pos[i].y)
+		else if (game->p_pos.y < game->z_pos[i].y &&
+			game->map[game->z_pos[i].y - 1][game->z_pos[i].x] == '0')
 			z_move_up(game, i);
-		else if (game->p_pos.y > game->z_pos[i].y)
+		else if (game->p_pos.y > game->z_pos[i].y &&
+			game->map[game->z_pos[i].y + 1][game->z_pos[i].x] == '0')
 			z_move_down(game, i);
 		i++;
 	}
