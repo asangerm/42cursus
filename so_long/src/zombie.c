@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:06:44 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 20:58:31 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 00:52:36 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,12 @@ void	zombie_move(t_game *game)
 	char	c[3];
 	t_axes	pos;
 
-	i = -1;
+	i = 0;
 	c[0] = 'P';
 	c[1] = '0';
 	c[2] = '\0';
 	coords_p(game);
-	while (i++ < game->nb_zombie)
+	while (i < game->nb_zombie)
 	{
 		pos = game->z_pos[i];
 		if (game->p_pos.x < pos.x && is_in(game->map[pos.y][pos.x - 1], c))
@@ -148,5 +148,6 @@ void	zombie_move(t_game *game)
 			z_move_up(game, i);
 		else if (game->p_pos.y > pos.y && is_in(game->map[pos.y + 1][pos.x], c))
 			z_move_down(game, i);
+		i++;
 	}
 }

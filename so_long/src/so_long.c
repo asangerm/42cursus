@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:00 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 15:20:10 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:01:22 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,21 @@ int	nb_char(t_game *game, char c)
 
 void	destroy(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	mlx_destroy_image(game->mlx, game->text.dirt.img);
 	mlx_destroy_image(game->mlx, game->text.bedrock.img);
 	mlx_destroy_image(game->mlx, game->text.steve.img);
 	mlx_destroy_image(game->mlx, game->text.diamond.img);
-	mlx_destroy_image(game->mlx, game->text.portal.img);
 	mlx_destroy_image(game->mlx, game->text.book.img);
 	mlx_destroy_image(game->mlx, game->text.zombie.img);
+	while (i < 8)
+	{
+		mlx_destroy_image(game->mlx, game->text.portal[i].img);
+		i++;
+	}
+	free(game->text.portal);
 }
 
 void	end(t_game *game)
@@ -104,14 +112,13 @@ int	main(int argc, char **argv)
 			game.map_dim.y * 64, "So_long");
 	if (!game.win)
 		return (0);
-	game.nb_diamond = nb_char(&game, 'C');
-	game.nb_zombie = nb_char(&game, 'Z');
-	game.c_pos = malloc(sizeof(t_axes) * game.nb_diamond);
-	game.z_pos = malloc(sizeof(t_axes) * game.nb_zombie);
+	game_init2(&game);
+	image_init2(&game);
 	check_map(&game);
 	display_map(&game);
 	mlx_key_hook(game.win, key_hook, &game);
 	mlx_hook(game.win, 17, 1L << 17, close_window, &game);
+	mlx_loop_hook(game.mlx, anime_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

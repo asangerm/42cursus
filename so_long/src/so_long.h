@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 20:44:39 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:16:31 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@
 # define STEVE "./textures/steve.xpm"
 # define DIAMOND "./textures/diamond.xpm"
 # define DIRT "./textures/dirt.xpm"
-# define PORTAL "./textures/portal.xpm"
+# define PORTAL1 "./textures/portal1.xpm"
+# define PORTAL2 "./textures/portal2.xpm"
+# define PORTAL3 "./textures/portal3.xpm"
+# define PORTAL4 "./textures/portal4.xpm"
+# define PORTAL5 "./textures/portal5.xpm"
+# define PORTAL6 "./textures/portal6.xpm"
+# define PORTAL7 "./textures/portal7.xpm"
+# define PORTAL8 "./textures/portal8.xpm"
 # define BOOK "./textures/book.xpm"
 # define ZOMBIE "./textures/zombie.xpm"
 
@@ -57,7 +64,7 @@ typedef struct s_text
 	t_img	bedrock;
 	t_img	steve;
 	t_img	diamond;
-	t_img	portal;
+	t_img	*portal;
 	t_img	book;
 	t_img	zombie;
 }			t_text;
@@ -73,6 +80,8 @@ typedef struct s_game
 	int		nb_diamond;
 	int		nb_zombie;
 	int		count;
+	int		portal_i;
+	int		clock;
 	t_axes	p_pos;
 	t_axes	e_pos;
 	t_axes	*z_pos;
@@ -88,8 +97,11 @@ void	move_left(t_game *game);
 char	**str_to_tab(char *str);
 void	check_map(t_game *game);
 void	game_init(t_game *game);
+int		anime_loop(t_game *game);
+void	game_init2(t_game *game);
 void	image_init(t_game *game);
 void	move_right(t_game *game);
+void	image_init2(t_game *game);
 void	display_map(t_game *game);
 void	zombie_move(t_game *game);
 char	*file_to_str(t_game *game);

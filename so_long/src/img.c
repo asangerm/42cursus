@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:08:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 13:53:49 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:05:26 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	display_map(t_game *game)
 			else if (game->map[i.y][i.x] == '0')
 				print_img(game->text.dirt, game, i);
 			else if (game->map[i.y][i.x] == 'E')
-				print_img(game->text.portal, game, i);
+				print_img(game->text.portal[0], game, i);
 			else if (game->map[i.y][i.x] == 'P')
 				overlay_img(game->text.steve, game->text.dirt, game, i);
 			else if (game->map[i.y][i.x] == 'C')
@@ -82,4 +82,5 @@ void	display_map(t_game *game)
 		}
 		i.y++;
 	}
+	game->portal_i = 0;
 }
