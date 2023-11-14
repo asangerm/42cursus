@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:10:51 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/14 01:21:29 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:23:27 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	anime_loop(t_game *game)
 {
 	if (game->portal_i >= 0)
 	{
-		if(game->clock == 1000)
+		if (game->clock == 1000)
 		{
 			if (game->portal_i == 8)
 				game->portal_i = 0;
