@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:39:18 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/13 20:34:47 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:09:05 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	reload(t_game *game, t_axes new_pos)
 	game->count += 1;
 	ft_printf("move nb = %d\n", game->count);
 	display_moves(game);
-	if (game->count % 2 == 0)
+	if (game->count % 1 == 0)
 		zombie_move(game);
 }
 
