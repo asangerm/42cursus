@@ -6,7 +6,7 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 11:25:47 by asangerm          #+#    #+#              #
-#    Updated: 2023/11/16 11:43:23 by asangerm         ###   ########.fr        #
+#    Updated: 2023/11/20 14:13:38 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,13 +43,13 @@ all				:	$(SERVER) $(CLIENT)
 # The server rule
 $(SERVER)			:	$(OBJ_SERV) $(LIBFT)
 	@echo "\033[0;33mCompiling server -> ⏳\033[0m"
-	$(CC) $(OBJ_SERV) $(LIBFT) -o $@
+	@$(CC) $(OBJ_SERV) $(LIBFT) -o $@
 	@echo "\033[0;32mServer successfuly compiled -> ✅\033[0m\n"
 
 # The client rule
 $(CLIENT)			:	$(OBJ_CLIENT) $(LIBFT)
 	@echo "\033[0;33mCompiling client -> ⏳\033[0m"
-	$(CC) $(OBJ_CLIENT) $(LIBFT) -o $@
+	@$(CC) $(OBJ_CLIENT) $(LIBFT) -o $@
 	@echo "\033[0;32mClient successfuly compiled -> ✅\033[0m\n"
 
 # The libft rule
@@ -60,15 +60,15 @@ $(LIBFT)		:	$(LIB_DIR)
 
 # Compile .c to .o files for server
 $(OBJ_DIR_SERV)%.o	:	$(SRC_DIR_SERV)%.c | $(OBJ_DIR_SERV)
-	@echo "\033[0;33mCompiling project src -> ⏳\033[0m"
+	@echo "\033[0;33mCompiling server src -> ⏳\033[0m"
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "\033[0;32mSrc's project successfuly compiled -> ✅\033[0m\n"
+	@echo "\033[0;32mServer's src successfuly compiled -> ✅\033[0m\n"
 
 # Compile .c to .o files for client
 $(OBJ_DIR_CLIENT)%.o	:	$(SRC_DIR_CLIENT)%.c | $(OBJ_DIR_CLIENT)
-	@echo "\033[0;33mCompiling project src -> ⏳\033[0m"
+	@echo "\033[0;33mCompiling client src -> ⏳\033[0m"
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "\033[0;32mSrc's project successfuly compiled -> ✅\033[0m\n"
+	@echo "\033[0;32mClient's src successfuly compiled -> ✅\033[0m\n"
 
 # Create the obj server directory
 $(OBJ_DIR_SERV)		:
