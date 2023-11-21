@@ -6,29 +6,50 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:09:33 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/20 14:24:02 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:20:17 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-void	signal_f(int sig)
+void	signal_f(int sig, siginfo_t *info, void *context)
 {
-	ft_printf("signal delivered, the signal is: %d\n", sig);
+	static int	i;
+	static int	bit;
+
+	(void)context;
+	if (sig == SIGUSR1)
+	{
+		bit = (bit << 1) | 1;
+		kill(info->si_pid, SIGUSR1);
+	}
+	else if (sig == SIGUSR2)
+	{
+		bit = (bit << 1);
+		kill(info->si_pid, SIGUSR2);
+	}
+	i++;
+	if (i == 8)
+	{
+		ft_printf("%c", (char)bit);
+		i = 0;
+		bit = 0;
+	}
 }
 
 int	main(void)
 {
-	pid_t	pid;
+	pid_t				pid;
+	struct sigaction	sa;
 
 	pid = getpid();
 	ft_printf("salut, je suis le serveur! Mon pid est : %d\n", pid);
-
-	signal(SIGUSR1, signal_f);
-	signal(SIGUSR2, signal_f);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = signal_f;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 
 	while (1)
 		sleep(1);
 	return (0);
 }
-
