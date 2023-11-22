@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:09:33 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/21 17:20:17 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:08:24 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	signal_f(int sig, siginfo_t *info, void *context)
 	if (sig == SIGUSR1)
 	{
 		bit = (bit << 1) | 1;
+		usleep(200);
 		kill(info->si_pid, SIGUSR1);
 	}
 	else if (sig == SIGUSR2)
 	{
 		bit = (bit << 1);
+		usleep(200);
 		kill(info->si_pid, SIGUSR2);
 	}
 	i++;
@@ -35,6 +37,7 @@ void	signal_f(int sig, siginfo_t *info, void *context)
 		i = 0;
 		bit = 0;
 	}
+	usleep(100);
 }
 
 int	main(void)
@@ -48,8 +51,7 @@ int	main(void)
 	sa.sa_sigaction = signal_f;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-
 	while (1)
-		sleep(1);
+		pause();
 	return (0);
 }
