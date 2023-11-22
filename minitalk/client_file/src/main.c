@@ -6,13 +6,20 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:44:39 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/22 14:06:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:38:52 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-int	valid;
+int	g_valid;
+
+typedef struct s_var
+{
+	int	i;
+	int	bit;
+	int	repeat;
+}		t_var;
 
 void	ft_error(char *str)
 {
@@ -23,57 +30,45 @@ void	ft_error(char *str)
 void	is_2(int sig)
 {
 	if (sig == SIGUSR2)
-		valid = 1;
+		g_valid = 1;
 	else
-		valid = 0;
+		g_valid = 0;
 }
 
 void	is_1(int sig)
 {
 	if (sig == SIGUSR1)
-		valid = 1;
+		g_valid = 1;
 	else
-		valid = 0;
+		g_valid = 0;
 }
 
 void	send_to(char c, pid_t serv_pid)
 {
-	int	i;
-	int	bit;
-	int	repeat;
+	t_var	var;
 
-	i = 7;
+	var.i = 8;
 	signal(SIGUSR2, is_2);
 	signal(SIGUSR1, is_1);
-	while (i >= 0)
+	while (var.i-- > 0)
 	{
-		valid = 0;
-		bit = (c >> i) & 1;
-		repeat = 0;
-		while (repeat < 10)
+		g_valid = 0;
+		var.bit = (c >> var.i) & 1;
+		var.repeat = 0;
+		while (var.repeat < 10)
 		{
-			if (bit == 1)
-			{
+			if (var.bit == 1)
 				kill(serv_pid, SIGUSR1);
-				ft_printf("bit = 1\n");
-			}
 			else
-			{
 				kill(serv_pid, SIGUSR2);
-				ft_printf("bit = 0\n");
-			}
 			pause();
-			//usleep(100);
-			if (valid)
-				break;
+			if (g_valid)
+				break ;
 			else
-				repeat++;
+				var.repeat++;
 		}
-		if (repeat >= 10)
-		{
+		if (var.repeat >= 10)
 			ft_error("Échec de la transmission\n");
-		}
-		i--;
 	}
 }
 
@@ -88,7 +83,7 @@ int	main(int argc, char **argv)
 	serv_pid = ft_atoi(argv[1]);
 	str = argv[2];
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		usleep(500);
 		send_to(str[i], serv_pid);
