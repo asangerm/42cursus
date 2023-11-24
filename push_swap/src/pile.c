@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:51:30 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/24 19:08:34 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/24 22:35:10 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ t_pile	*pile_new(int n)
 	return (new);
 }
 
-t_pile	*pile_last(t_pile *pile)
+t_pile	*pile_last(t_pile **pile)
 {
-	if (!pile)
+	t_pile	*new;
+
+	new = *pile;
+	if (!new)
 		return (NULL);
-	while (pile -> next)
-		pile = pile -> next;
-	return (pile);
+	while (new->next)
+		new = new->next;
+	return (new);
 }
 
 void	pile_add_back(t_pile **pile, t_pile *new)
@@ -42,27 +45,34 @@ void	pile_add_back(t_pile **pile, t_pile *new)
 		*pile = new;
 		return ;
 	}
-	tmp = pile_last(*pile);
+	tmp = pile_last(pile);
 	tmp -> next = new;
 }
 
-void	pile_iter(t_pile *pile, void (f)(int))
+void	pile_iter(t_pile **pile, void (f)(int))
 {
-	while (pile)
+	t_pile	*tmp;
+
+	tmp = *pile;
+	while (tmp)
 	{
-		f(pile->val);
-		pile = pile->next;
+		f(tmp->val);
+		ft_printf(" ");
+		tmp = tmp->next;
 	}
 }
 
 void	pile_clear(t_pile **pile)
 {
-	t_pile	*tmp;
+	t_pile	*current;
+	t_pile	*next;
 
-	while (*pile)
+	current = *pile;
+	while (current)
 	{
-		tmp = (*pile)-> next;
-		free(*pile);
-		(*pile) = tmp;
+		next = current-> next;
+		free(current);
+		current = next;
 	}
+	*pile = NULL;
 }
