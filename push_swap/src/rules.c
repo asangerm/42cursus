@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:11:13 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/24 22:57:40 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:09:34 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	swap(t_pile **pile)
 {
 	t_pile	*first;
-	int	tmp;
+	int		tmp;
 
-	if(!(*pile) || !(*pile)->next)
+	if (!(*pile) || !(*pile)->next)
 		return ;
 	first = *pile;
 	tmp = first->val;
