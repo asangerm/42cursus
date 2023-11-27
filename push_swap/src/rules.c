@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:11:13 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/25 16:09:34 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:36:52 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,11 @@ void	push(t_pile **src, t_pile **dest)
 		pile_add_front(dest, new);
 		free(to_add);
 	}
+}
+
+void	sa(t_pile **a, t_pile **b)
+{
+	swap(a);
+	ft_printf("sa\n");
+	(void)b;
 }

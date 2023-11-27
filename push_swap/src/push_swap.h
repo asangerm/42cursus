@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/24 22:24:39 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:06:07 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@
 typedef struct s_pile
 {
 	int				val;
+	int				cost;
 	struct s_pile	*next;
 }		t_pile;
+
+typedef struct s_len
+{
+	int	a;
+	int	b;
+}		t_len;
 
 /* pile.c */
 
@@ -35,6 +42,8 @@ void	pile_add_back(t_pile **pile, t_pile *new);
 
 /* pile_2.c */
 
+int		is_sorted(t_pile **pile);
+t_len	pile_len(t_pile **a, t_pile **b);
 void	pile_print(t_pile **a, t_pile **b);
 void	pile_add_front(t_pile **lst, t_pile *new);
 
@@ -46,7 +55,30 @@ void	ft_putnbr(int n);
 
 void	swap(t_pile **pile);
 void	rotate(t_pile **pile);
+void	sa(t_pile **a, t_pile **b);
 void	reverse_rotate(t_pile **pile);
 void	push(t_pile **src, t_pile **dest);
+
+/* rules_2.c */
+
+void	sb(t_pile **a, t_pile **b);
+void	ss(t_pile **a, t_pile **b);
+void	pa(t_pile **a, t_pile **b);
+void	pb(t_pile **a, t_pile **b);
+void	ra(t_pile **a, t_pile **b);
+
+/* rules_3.c */
+
+void	rb(t_pile **a, t_pile **b);
+void	rr(t_pile **a, t_pile **b);
+void	rra(t_pile **a, t_pile **b);
+void	rrb(t_pile **a, t_pile **b);
+void	rrr(t_pile **a, t_pile **b);
+
+/* cost.c */
+
+int		search_min(t_pile **a);
+void	cost_calc(t_pile **a, t_pile **b);
+void	cost_set(t_pile **a, t_pile **b, t_len i, t_len len);
 
 #endif

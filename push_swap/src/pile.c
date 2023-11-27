@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:51:30 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/24 22:35:10 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:57:10 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	pile_iter(t_pile **pile, void (f)(int))
 	while (tmp)
 	{
 		f(tmp->val);
+		ft_printf(":");
+		f(tmp->cost);
 		ft_printf(" ");
 		tmp = tmp->next;
 	}
