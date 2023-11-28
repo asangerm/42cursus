@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:59:57 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/27 21:00:34 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/28 01:26:18 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,16 @@ t_len	pile_len(t_pile **a, t_pile **b)
 		len.b++;
 	}
 	return (len);
+}
+
+void	set_zero(t_pile **pile)
+{
+	t_pile	*first;
+
+	first = *pile;
+	while(first)
+	{
+		first->cost = 0;
+		first = first->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:11:13 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:52 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/28 01:28:11 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	push(t_pile **src, t_pile **dest)
 	{
 		to_add = *src;
 		new = pile_new(to_add->val);
+		new->cost = 0;
 		*src = to_add->next;
 		to_add->next = NULL;
 		pile_add_front(dest, new);

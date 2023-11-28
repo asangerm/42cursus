@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/27 21:06:07 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/28 01:10:17 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	pile_add_back(t_pile **pile, t_pile *new);
 
 /* pile_2.c */
 
+void	set_zero(t_pile **pile);
 int		is_sorted(t_pile **pile);
 t_len	pile_len(t_pile **a, t_pile **b);
 void	pile_print(t_pile **a, t_pile **b);

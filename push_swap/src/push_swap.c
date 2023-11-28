@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:16:56 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/27 21:09:52 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/28 01:28:44 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 		tmp = pile_new(ft_atoi(argv[i]));
 		pile_add_back(&a, tmp);
 	}
+	set_zero(&a);
 	/*
 	pile_print(&a, &b);
 	rra(&a, &b);
@@ -73,6 +74,7 @@ int	main(int argc, char **argv)
 	pb(&a, &b);
 	pb(&a, &b);
 	pb(&a, &b);
+	pile_print(&a, &b);
 	cost_calc(&a, &b);
 	ft_printf("min val: %d\n", search_min(&a));
 	pile_print(&a, &b);
