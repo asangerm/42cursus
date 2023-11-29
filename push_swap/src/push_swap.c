@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:16:56 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/28 01:28:44 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:30:39 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,9 @@ int	main(int argc, char **argv)
 		pile_add_back(&a, tmp);
 	}
 	set_zero(&a);
-	/*
 	pile_print(&a, &b);
-	rra(&a, &b);
-	pile_print(&a, &b);
-	rra(&a, &b);
-	pile_print(&a, &b);
-	rra(&a, &b);
-	pile_print(&a, &b);
-	sa(&a, &b);
-	pile_print(&a, &b);
-	ra(&a, &b);
-	pile_print(&a, &b);
-	ra(&a, &b);
-	pile_print(&a, &b);
-	*/
-	pb(&a, &b);
-	pb(&a, &b);
-	pb(&a, &b);
-	pile_print(&a, &b);
-	cost_calc(&a, &b);
-	ft_printf("min val: %d\n", search_min(&a));
-	pile_print(&a, &b);
-	ft_printf("%d\n", is_sorted(&a));
+	if (!is_sorted(&a))
+		sort(&a, &b);
 	pile_clear(&a);
 	pile_clear(&b);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/29 01:20:46 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/29 02:01:54 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,10 @@ void	cost_calc(t_pile **a, t_pile **b);
 int		search_first_inf(t_pile **b, int val_a);
 void	cost_to_go_top(t_pile *a, int i, t_len len);
 void	cost_to_setup(t_pile *a, t_pile **b, t_len len);
+
+/* sort.c */
+
+void	sort(t_pile **a, t_pile **b);
+void	put_to_top(t_pile **a, t_pile **b, int min, t_len len);
 
 #endif
