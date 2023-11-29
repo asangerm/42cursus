@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 01:23:12 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/29 02:26:40 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/29 02:49:47 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	put_to_top(t_pile **a, t_pile **b, int min, t_len len)
 		if (i <= len.a / 2)
 			rra(a, b);
 		else
-			
 			ra(a, b);
+		first_a = *a;
 	}
 }
 
