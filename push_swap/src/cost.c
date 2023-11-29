@@ -6,52 +6,66 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:22:04 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/27 21:07:41 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:21:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	cost_set(t_pile **a, t_pile **b, t_len i, t_len len)
+int	search_first_inf(t_pile **b, int val_a)
 {
-	t_pile	*first_a;
 	t_pile	*first_b;
+	int		i;
 
-	first_a = *a;
 	first_b = *b;
-	if (first_a->val < first_b->val && i.b < len.b / 2)
-		first_a->cost += 1;
-	if (first_a->val < first_b->val && i.b > len.b / 2)
-		first_a->cost -= 1;
-	*b = (*b)->next;
+	i = 0;
+	while (first_b)
+	{
+		if (val_a < first_b->val)
+			i++;
+		first_b = first_b->next;
+	}
+	return (i);
+}
+
+void	cost_to_go_top(t_pile *a, int i, t_len len)
+{
+	if (i <= len.a / 2)
+		(a)->cost += i;
+	else
+		(a)->cost += (len.a - i);
+}
+
+void	cost_to_setup(t_pile *a, t_pile **b, t_len len)
+{
+	int	i;
+
+	i = search_first_inf(b, a->val);
+	if (i != 0)
+	{
+		if (i < len.b / 2)
+			a->cost += (2 * i + 1);
+		else
+			a->cost += (2 * (len.b - i) + 1);
+	}
 }
 
 void	cost_calc(t_pile **a, t_pile **b)
 {
 	t_pile	*first_a;
-	t_pile	*first_b;
 	t_len	len;
-	t_len	i;
+	int		i;
 
 	first_a = *a;
 	len = pile_len(a, b);
-	i.a = 0;
+	i = 0;
 	while (first_a)
 	{
-		first_b = *b;
-		i.b = 0;
-		while (first_b)
-		{
-			cost_set(&first_a, &first_b, i, len);
-			i.b++;
-		}
-		if (i.a <= len.a / 2)
-			first_a->cost += i.a;
-		else
-			first_a->cost += len.a - i.a;
+		cost_to_setup(first_a, b, len);
+		cost_to_go_top(first_a, i, len);
 		first_a->cost += 1;
 		first_a = first_a->next;
-		i.a++;
+		i++;
 	}
 }
 
