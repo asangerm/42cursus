@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/29 02:01:54 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:22:12 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	pile_add_front(t_pile **lst, t_pile *new);
 /* utils.c */
 
 void	ft_putnbr(int n);
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
+int		get_max(t_pile **pile);
+int		is_reverse_sorted(t_pile **pile);
 
 /* rules.c */
 
@@ -87,6 +91,7 @@ void	cost_to_setup(t_pile *a, t_pile **b, t_len len);
 /* sort.c */
 
 void	sort(t_pile **a, t_pile **b);
+void	set_b(t_pile **a, t_pile **b, t_len len);
 void	put_to_top(t_pile **a, t_pile **b, int min, t_len len);
 
 #endif

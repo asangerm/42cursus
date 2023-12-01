@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:22:04 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/29 01:21:41 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:33:14 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	cost_to_setup(t_pile *a, t_pile **b, t_len len)
 	i = search_first_inf(b, a->val);
 	if (i != 0)
 	{
-		if (i < len.b / 2)
-			a->cost += (2 * i + 1);
+		if (i == 1)
+			a->cost += 1;
+		else if (i <= len.b / 2)
+			a->cost += (2 * (i - 1) + 1);
 		else
 			a->cost += (2 * (len.b - i) + 1);
 	}
