@@ -6,23 +6,35 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:22:04 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 13:33:14 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:37:47 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	search_first_inf(t_pile **b, int val_a)
+t_len	search_first_inf(t_pile **b, int val_a)
 {
 	t_pile	*first_b;
-	int		i;
+	t_len	i;
 
 	first_b = *b;
-	i = 0;
+	i.a = 0;
+	i.b = 0;
 	while (first_b)
 	{
-		if (val_a < first_b->val)
-			i++;
+		if (val_a > first_b->val)
+			if (first_b->val > i.b)
+				i.b = first_b->val;
+		first_b = first_b->next;
+	}
+	if (i.b == 0)
+		i.b = get_max(b);
+	first_b = *b;
+	while (first_b)
+	{
+		if (i.b == first_b->val)
+			return (i);
+		i.a++;
 		first_b = first_b->next;
 	}
 	return (i);
@@ -38,18 +50,13 @@ void	cost_to_go_top(t_pile *a, int i, t_len len)
 
 void	cost_to_setup(t_pile *a, t_pile **b, t_len len)
 {
-	int	i;
+	t_len	i;
 
 	i = search_first_inf(b, a->val);
-	if (i != 0)
-	{
-		if (i == 1)
-			a->cost += 1;
-		else if (i <= len.b / 2)
-			a->cost += (2 * (i - 1) + 1);
-		else
-			a->cost += (2 * (len.b - i) + 1);
-	}
+	if (i.a <= len.b / 2)
+		a->cost += i.a;
+	else
+		a->cost += len.b - i.a;
 }
 
 void	cost_calc(t_pile **a, t_pile **b)
