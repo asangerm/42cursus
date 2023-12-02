@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 23:56:24 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:34:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ void	ft_putstr(char *s);
 int		get_max(t_pile **pile);
 int		is_reverse_sorted(t_pile **pile);
 
+/* utils_2.c */
+
+void	main_2(char **argv);
+void	free_argv(char **argv);
+int		count_elts(char **argv);
+void	check_dupe_2(int argc, char **argv);
+void	check_argv_2(int argc, char **argv);
+
+/* utils_3.c */
+
+void	ft_error_2(char *str, char **argv);
+
 /* rules.c */
 
 void	swap(t_pile **pile);
@@ -91,12 +103,25 @@ void	cost_to_setup(t_pile **a, t_pile *node_a, t_pile **b);
 /* sort.c */
 
 void	sort(t_pile **a, t_pile **b);
+long	ft_atoi_long(const char *str);
 int		get_cost(t_pile **pile, int val);
 void	set_sign(t_pile **a, t_pile **b, t_len len);
 void	put_to_top(t_pile **a, t_pile **b, int min, t_len len);
 
-/* sort _2.c */
+/* sort_2.c */
 
+int		get_min(t_pile **a);
+void	sort_2(t_pile **a, t_pile **b);
+void	sort_3(t_pile **a, t_pile **b);
+void	sort_5(t_pile **a, t_pile **b);
 void	sort_inf_5(t_pile **a, t_pile **b);
+
+/* push_swap.c */
+
+void	ft_error(char *str);
+int		main(int argc, char **argv);
+int		is_in(int *tab, int len, int val);
+void	check_dupe(int argc, char **argv);
+void	check_argv(int argc, char **argv);
 
 #endif

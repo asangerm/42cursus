@@ -6,11 +6,39 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 01:23:12 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 22:36:29 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:44:57 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+long	ft_atoi_long(const char *str)
+{
+	int		i;
+	long	res;
+	int		neg;
+
+	res = 0;
+	i = 0;
+	neg = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg = -1;
+		i++;
+	}
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			res = res * 10 + (str[i] - '0');
+		else
+			return (res * neg);
+		i++;
+	}
+	return (res * neg);
+}
 
 void	set_sign(t_pile **a, t_pile **b, t_len len)
 {

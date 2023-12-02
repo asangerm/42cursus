@@ -1,110 +1,114 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:16:56 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/02 20:10:23 by asangerm         ###   ########.fr       */
+/*   Created: 2023/12/02 20:00:36 by asangerm          #+#    #+#             */
+/*   Updated: 2023/12/02 20:35:44 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_error(char *str)
-{
-	ft_printf("%s", str);
-	exit(0);
-}
-
-int	is_in(int *tab, int len, int val)
+void	free_argv(char **argv)
 {
 	int	i;
 
 	i = 0;
-	while (i < len)
+	while (argv[i])
 	{
-		if (tab[i] == val)
-			return (1);
+		free(argv[i]);
 		i++;
 	}
-	return (0);
+	free(argv);
 }
 
-void	check_dupe(int argc, char **argv)
+int	count_elts(char **argv)
+{
+	int	len;
+
+	len = 0;
+	while (argv[len])
+		len++;
+	return (len);
+}
+
+void	check_dupe_2(int argc, char **argv)
 {
 	int	len;
 	int	*tab;
 	int	i;
 
-	len = argc - 1;
+	len = argc;
 	tab = malloc(sizeof(int) * len);
 	i = 0;
 	while (i < len)
 	{
-		if (ft_atoi_long(argv[i + 1]) >= 2147483647)
+		if (ft_atoi_long(argv[i]) >= 2147483647)
 		{
 			free(tab);
-			ft_error("Error\n");
+			ft_error_2("Error\n", argv);
 		}
-		if (is_in(tab, i, ft_atoi(argv[i + 1])))
+		if (is_in(tab, i, ft_atoi(argv[i])))
 		{
 			free(tab);
-			ft_error("Error\n");
+			ft_error_2("Error\n", argv);
 		}
-		tab[i] = ft_atoi(argv[i + 1]);
+		tab[i] = ft_atoi(argv[i]);
 		i++;
 	}
 	free(tab);
 }
 
-void	check_argv(int argc, char **argv)
+void	check_argv_2(int argc, char **argv)
 {
 	int	i;
 	int	j;
 
-	i = 1;
-	if (argc <= 1)
-		ft_error("");
+	i = 0;
+	if (argc <= 0)
+		ft_error_2("", argv);
 	while (argv[i])
 	{
 		j = 0;
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
-				ft_error("Error\n");
+				ft_error_2("Error\n", argv);
 			j++;
 		}
 		i++;
 	}
-	check_dupe(argc, argv);
+	check_dupe_2(argc, argv);
 }
 
-int	main(int argc, char **argv)
+void	main_2(char **argv)
 {
 	int		i;
 	t_pile	*a;
 	t_pile	*tmp;
 	t_pile	*b;
 
-	if (argc == 2)
-		main_2(argv);
-	check_argv(argc, argv);
+	argv = ft_split(argv[1], ' ');
+	check_argv_2(count_elts(argv), argv);
 	i = 0;
 	a = NULL;
 	b = NULL;
-	while (i++ < (argc - 1))
+	while (argv[i])
 	{
 		tmp = pile_new(ft_atoi(argv[i]));
 		pile_add_back(&a, tmp);
+		i++;
 	}
 	set_zero(&a);
 	if (pile_len(&a, &b).a <= 5)
 		sort_inf_5(&a, &b);
 	if (!is_sorted(&a))
 		sort(&a, &b);
+	free_argv(argv);
 	pile_clear(&a);
 	pile_clear(&b);
-	return (0);
+	exit (0);
 }
