@@ -6,75 +6,74 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:22:04 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:37:47 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:36:48 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_len	search_first_inf(t_pile **b, int val_a)
+int	search_first_inf(t_pile **b, int val_a)
 {
 	t_pile	*first_b;
-	t_len	i;
+	int		val_b;
 
 	first_b = *b;
-	i.a = 0;
-	i.b = 0;
+	val_b = 0;
 	while (first_b)
 	{
 		if (val_a > first_b->val)
-			if (first_b->val > i.b)
-				i.b = first_b->val;
+			if (first_b->val > val_b)
+				val_b = first_b->val;
 		first_b = first_b->next;
 	}
-	if (i.b == 0)
-		i.b = get_max(b);
-	first_b = *b;
-	while (first_b)
+	if (val_b == 0)
+		val_b = get_max(b);
+	return (val_b);
+}
+
+int	get_tall(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+void	cost_to_setup(t_pile **a, t_pile *node_a, t_pile **b)
+{
+	int	cost_b;
+	int	cost_a;
+
+	cost_a = get_cost(a, node_a->val);
+	cost_b = get_cost(b, search_first_inf(b, node_a->val));
+	if (cost_a >= 0)
 	{
-		if (i.b == first_b->val)
-			return (i);
-		i.a++;
-		first_b = first_b->next;
+		if (cost_b >= 0)
+			node_a->cost = get_tall(cost_a, cost_b);
+		else
+			node_a->cost = cost_a + cost_b * -1;
 	}
-	return (i);
-}
-
-void	cost_to_go_top(t_pile *a, int i, t_len len)
-{
-	if (i <= len.a / 2)
-		(a)->cost += i;
-	else
-		(a)->cost += (len.a - i);
-}
-
-void	cost_to_setup(t_pile *a, t_pile **b, t_len len)
-{
-	t_len	i;
-
-	i = search_first_inf(b, a->val);
-	if (i.a <= len.b / 2)
-		a->cost += i.a;
-	else
-		a->cost += len.b - i.a;
+	else if (cost_a < 0)
+	{
+		if (cost_b < 0)
+			node_a->cost = get_tall(cost_a * -1, cost_b * -1);
+		else
+			node_a->cost = cost_b + cost_a * -1;
+	}
 }
 
 void	cost_calc(t_pile **a, t_pile **b)
 {
 	t_pile	*first_a;
 	t_len	len;
-	int		i;
 
 	first_a = *a;
 	len = pile_len(a, b);
-	i = 0;
+	set_sign(a, b, len);
 	while (first_a)
 	{
-		cost_to_setup(first_a, b, len);
-		cost_to_go_top(first_a, i, len);
+		cost_to_setup(a, first_a, b);
 		first_a->cost += 1;
 		first_a = first_a->next;
-		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:16:56 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 15:55:20 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:56:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	main(int argc, char **argv)
 		pile_add_back(&a, tmp);
 	}
 	set_zero(&a);
+	if (pile_len(&a, &b).a <= 5)
+		sort_inf_5(&a, &b);
 	if (!is_sorted(&a))
 		sort(&a, &b);
 	pile_clear(&a);

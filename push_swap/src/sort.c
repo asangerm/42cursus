@@ -6,51 +6,81 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 01:23:12 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:38:03 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:36:29 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	put_to_top(t_pile **a, t_pile **b, int min, t_len len)
+void	set_sign(t_pile **a, t_pile **b, t_len len)
 {
-	t_pile	*first_a;
+	t_pile	*first;
 	int		i;
 
-	first_a = *a;
+	first = *a;
 	i = 0;
-	while (first_a)
-	{
-		if (first_a->val == min)
-			break ;
-		i++;
-		first_a = first_a->next;
-	}
-	first_a = *a;
-	while (first_a->val != min)
+	while (first)
 	{
 		if (i <= len.a / 2)
-			ra(a, b);
+			first->cost = i;
 		else
-			rra(a, b);
-		first_a = *a;
+			first->cost = i - len.a;
+		first = first->next;
+		i++;
+	}
+	first = *b;
+	i = 0;
+	while (first)
+	{
+		if (i <= len.b / 2)
+			first->cost = i;
+		else
+			first->cost = i - len.b;
+		first = first->next;
+		i++;
 	}
 }
 
-void	set_b(t_pile **a, t_pile **b, t_len len)
+int	get_cost(t_pile **pile, int val)
 {
-	t_len	i;
+	t_pile	*first;
 
-	i = search_first_inf(b, (*a)->val);
-	if (i.a != 0)
+	first = *pile;
+	while (first)
 	{
-		if (i.a <= len.b / 2)
-			while ((*b)->val != i.b)
-				rb(a, b);
-		else
-			while ((*b)->val != i.b)
-				rrb(a, b);
+		if (first->val == val)
+			return (first->cost);
+		first = first->next;
 	}
+	return (0);
+}
+
+void	put_to_top(t_pile **a, t_pile **b, int min, t_len len)
+{
+	int	val_b;
+
+	val_b = search_first_inf(b, min);
+	while ((*a)->val != min)
+	{
+		if (get_cost(a, min) > 0)
+		{
+			if (get_cost(b, val_b) > 0)
+				rr(a, b);
+			else
+				ra(a, b);
+		}
+		else if (get_cost(a, min) < 0 && get_cost(b, val_b) < 0)
+			rrr(a, b);
+		else
+			rra(a, b);
+		set_sign(a, b, len);
+	}
+	if (get_cost(b, val_b) > 0)
+		while ((*b)->val != val_b)
+			rb(a, b);
+	else
+		while ((*b)->val != val_b)
+			rrb(a, b);
 }
 
 void	sort(t_pile **a, t_pile **b)
@@ -67,12 +97,17 @@ void	sort(t_pile **a, t_pile **b)
 		cost_calc(a, b);
 		min = search_min(a);
 		len = pile_len(a, b);
+		set_sign(a, b, len);
 		put_to_top(a, b, min, len);
-		set_b(a, b, len);
 		pb(a, b);
 	}
+	min = get_max(b);
+	if (get_cost(b, min) > 0)
+		while ((*b)->val != min)
+			rb(a, b);
+	else
+		while ((*b)->val != min)
+			rrb(a, b);
 	while ((*b))
-	{
 		pa(a, b);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:14:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:56:24 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,21 @@ void	rrr(t_pile **a, t_pile **b);
 
 /* cost.c */
 
+int		get_tall(int a, int b);
 int		search_min(t_pile **a);
 void	cost_calc(t_pile **a, t_pile **b);
-t_len	search_first_inf(t_pile **b, int val_a);
-void	cost_to_go_top(t_pile *a, int i, t_len len);
-void	cost_to_setup(t_pile *a, t_pile **b, t_len len);
+int		search_first_inf(t_pile **b, int val_a);
+void	cost_to_setup(t_pile **a, t_pile *node_a, t_pile **b);
 
 /* sort.c */
 
 void	sort(t_pile **a, t_pile **b);
-void	set_b(t_pile **a, t_pile **b, t_len len);
+int		get_cost(t_pile **pile, int val);
+void	set_sign(t_pile **a, t_pile **b, t_len len);
 void	put_to_top(t_pile **a, t_pile **b, int min, t_len len);
+
+/* sort _2.c */
+
+void	sort_inf_5(t_pile **a, t_pile **b);
 
 #endif
