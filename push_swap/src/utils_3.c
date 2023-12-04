@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:29:45 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/04 14:59:41 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:15:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_free(char **args)
 void	ft_error_2(char *str, char **argv)
 {
 	(void)str;
+	ft_printf("%s", str);
 	ft_free(argv);
 	exit(0);
 }
@@ -37,7 +38,7 @@ void	ft_check(int argc, char **argv)
 	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
-		check_argv_2(argc, argv);
+		check_argv_2(count_elts(argv), argv);
 		ft_free(argv);
 	}
 	else
