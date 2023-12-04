@@ -6,24 +6,11 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:00:36 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/02 20:35:44 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:56:15 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	free_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		free(argv[i]);
-		i++;
-	}
-	free(argv);
-}
 
 int	count_elts(char **argv)
 {
@@ -107,7 +94,7 @@ void	main_2(char **argv)
 		sort_inf_5(&a, &b);
 	if (!is_sorted(&a))
 		sort(&a, &b);
-	free_argv(argv);
+	ft_free(argv);
 	pile_clear(&a);
 	pile_clear(&b);
 	exit (0);

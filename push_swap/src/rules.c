@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:11:13 by asangerm          #+#    #+#             */
-/*   Updated: 2023/11/28 01:28:11 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:04:20 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	reverse_rotate(t_pile **pile)
 	t_pile	*last;
 	t_pile	*first;
 
-	if (!(*pile) || !(pile_last(pile)))
+	if (!(*pile) || !(pile_last(pile)) || pile_len(pile, pile).a == 1)
 		return ;
 	last = *pile;
 	while (last->next->next)

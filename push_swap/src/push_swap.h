@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:15:58 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/02 20:34:41 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:55:35 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,17 @@ int		is_reverse_sorted(t_pile **pile);
 /* utils_2.c */
 
 void	main_2(char **argv);
-void	free_argv(char **argv);
 int		count_elts(char **argv);
 void	check_dupe_2(int argc, char **argv);
 void	check_argv_2(int argc, char **argv);
 
 /* utils_3.c */
 
+void	ft_free(char **args);
+void	ft_check(int argc, char **argv);
 void	ft_error_2(char *str, char **argv);
+void	init(t_pile **a, int argc, char **argv);
+void	ft_error_pile(char *str, t_pile **a, t_pile **b);
 
 /* rules.c */
 

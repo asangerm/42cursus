@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:31:31 by asangerm          #+#    #+#             */
-/*   Updated: 2023/10/27 15:50:58 by asangerm         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:21:34 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_bzero(void *s, size_t n);
 int		ft_putnbr_fd(int n, int fd);
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
+int		ft_strcmp(char *s1, char *s2);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_printf(const char *arg, ...);
 char	*ft_strchr(const char *s, int c);
