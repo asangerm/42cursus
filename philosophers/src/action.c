@@ -6,56 +6,46 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:34:51 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/19 13:35:40 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:42:05 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	sleep_(long long time, t_data *data)
-{
-	long long	i;
-
-	i = get_time();
-	while ((!((get_time() - i) >= time)) && !(data->e_dead))
-		usleep(50);
-}
-
 void	eat(t_philo *philo)
 {
 	t_data	*data;
 
-	data = philo->data;
-	pthread_mutex_lock(&(data->forks[philo->forks.left]));
-	print(data, philo->nb, "has taken a fork");
-	pthread_mutex_lock(&(data->forks[philo->forks.right]));
-	print(data, philo->nb, "has taken a fork");
-	print(data, philo->nb, "is eating");
-	philo->time_last_eat = get_time();
-	sleep_(data->t_eat, data);
-	philo->nb_eat++;
-	pthread_mutex_unlock(&(data->forks[philo->forks.left]));
-	pthread_mutex_unlock(&(data->forks[philo->forks.right]));
+	data = philo->data_ph;
+	pthread_mutex_lock(&(data->forks[philo->fork.l]));
+	pthread_mutex_lock(&(data->eat_m));
+	print_action(data, philo->id_ph, "has taken a fork");
+	pthread_mutex_unlock(&(data->eat_m));
+	pthread_mutex_lock(&(data->forks[philo->fork.r]));
+	pthread_mutex_lock(&(data->eat_m));
+	print_action(data, philo->id_ph, "has taken a fork");
+	print_action(data, philo->id_ph, "is eating");
+	philo->last_eat_ph = stock_time();
+	pthread_mutex_unlock(&(data->eat_m));
+	sleep_time(data->t_eat, data);
+	pthread_mutex_lock(&(data->eat_m));
+	(philo->n_eat_ph)++;
+	pthread_mutex_unlock(&(data->eat_m));
+	pthread_mutex_unlock(&(data->forks[philo->fork.r]));
+	pthread_mutex_unlock(&(data->forks[philo->fork.l]));
 }
 
-void	*routine(void *arg)
+void	sleep_time(long long time, t_data *data)
 {
-	t_philo		*ph;
-	t_data		*data;
-	int			i;
+	long long	i;
 
-	i = 0;
-	ph = (t_philo *)arg;
-	data = ph->data;
-	//if (ph->nb % 2 == 0)
-		//usleep(1500);
-	while (!(data->e_dead) && !(data->e_full))
+	i = stock_time();
+	pthread_mutex_lock(&(data->eat_m));
+	while ((!((stock_time() - i) >= time)) && !(data->is_dead))
 	{
-		eat(ph);
-		print(data, ph->nb, "is sleeping");
-		sleep_(data->t_sleep, data);
-		print(data, ph->nb, "is thinking");
-		i++;
+		pthread_mutex_unlock(&(data->eat_m));
+		usleep(50);
+		pthread_mutex_lock(&(data->eat_m));
 	}
-	return (NULL);
+	pthread_mutex_unlock(&(data->eat_m));
 }

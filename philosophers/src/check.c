@@ -6,52 +6,54 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:31:02 by asangerm          #+#    #+#             */
-/*   Updated: 2023/12/19 13:33:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:18:57 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	check(int argc, char **argv)
+void	check_args(int argc, char **argv)
 {
-	int	i;
-	int	j;
+	if (argc < 5 || argc > 6)
+		ft_error("Error, program needs 5 or 6 args");
+	if (!check_value(argc, argv))
+		ft_error("Error, args are not digit");
+	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[2]) <= 0
+		|| ft_atoi(argv[3]) <= 0 || ft_atoi(argv[4]) <= 0)
+		ft_error("Error, args not positive");
+}
 
-	if (argc > 6 || argc < 5)
-		ft_error("Error wrong args\n");
-	i = 1;
-	while (i < argc)
+void	check_eat_death(int i, t_data *data, t_philo *ph)
+{
+	while (++i < data->n_philo && !(data->is_dead))
 	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (!(ft_isdigit(argv[i][j])))
-				ft_error("Error only digit args\n");
-			j++;
-		}
-		if(ft_atoi(argv[i]) <= 0)
-			ft_error("Error only positives args\n");
-		i++;
+		pthread_mutex_lock(&(data->eat_m));
+		if ((stock_time() - ph[i].last_eat_ph) > data->t_die)
+			print_action(data, i + 1, "is dead");
+		if ((stock_time() - ph[i].last_eat_ph) > data->t_die)
+			data->is_dead = 1;
+		pthread_mutex_unlock(&(data->eat_m));
+		usleep(100);
 	}
 }
 
-void	check_death(int i, t_data *data, t_philo *ph)
+void	is_dead(t_data *data, t_philo *ph)
 {
-	int	j;
+	int	i;
 
-	j = 0;
-	while (i < data->nb_philo && !(data->e_dead))
+	while ((data->meal_n) != -1)
 	{
-		if ((get_time() - ph[i].time_last_eat) > data->t_die)
-		{
-			print(data, i, "is dead");
-			data->e_dead = 1;
-		}
-		if(ph[i].nb_eat >= 1 && data->nb_eat == -1)
-			j++;
-		usleep(100);
-		i++;
+		i = -1;
+		check_eat_death(i, data, ph);
+		if (data->is_dead)
+			break;
+		i = 0;
+		pthread_mutex_lock(&(data->eat_m));
+		while (data->meal_n != -1 && i < data->n_philo
+			&& ph[i].n_eat_ph >= data->meal_n)
+			i++;
+		if (i == data->n_philo)
+			finish(data);
+		pthread_mutex_unlock(&(data->eat_m));
 	}
-	if (j >= data->nb_philo)
-		data->e_full = 1;
 }
