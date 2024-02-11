@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:31:02 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/02 17:18:57 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:01:00 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	is_dead(t_data *data, t_philo *ph)
 {
 	int	i;
 
-	while ((data->meal_n) != -1)
+	while (1)
 	{
 		i = -1;
 		check_eat_death(i, data, ph);
