@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:28:12 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/02 15:49:50 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:00:24 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	set_data(int argc, char **argv, t_data *data)
 	data->t_die = ft_atoi(argv[2]);
 	data->t_eat = ft_atoi(argv[3]);
 	data->t_sleep = ft_atoi(argv[4]);
+	data->have_ate = 0;
 	if (argc == 6)
 		data->meal_n = ft_atoi(argv[5]);
 	else
@@ -63,11 +64,11 @@ void	finish(t_data *data)
 	ph = data->philos;
 	if (data->n_philo == 1)
 		pthread_mutex_unlock(&(data->forks[ph[0].fork.l]));
-	/*while (i < data->n_philo)
+	while (i < data->n_philo)
 	{
 		pthread_join(ph[i].n_thread, NULL);
 		i++;
-	}*/
+	}
 	i = 0;
 	while (++i < data->n_philo)
 		pthread_mutex_destroy(&(data->forks[i]));

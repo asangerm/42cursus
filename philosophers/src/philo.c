@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 23:48:28 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/11 19:00:25 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:00:55 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*life(void *philo)
 	if (ph->id_ph % 2 == 0)
 		usleep(1500);
 	pthread_mutex_lock(&(data->eat_m));
-	while (!(data->is_dead))
+	while (!(data->is_dead) && data->have_ate != 1)
 	{
 		pthread_mutex_unlock(&(data->eat_m));
 		eat(ph);

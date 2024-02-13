@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:31:02 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/11 19:01:00 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:42:53 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void	is_dead(t_data *data, t_philo *ph)
 			&& ph[i].n_eat_ph >= data->meal_n)
 			i++;
 		if (i == data->n_philo)
-			finish(data);
+			{
+				data->have_ate = 1;
+				pthread_mutex_unlock(&(data->eat_m));
+				finish(data);
+				pthread_mutex_lock(&(data->eat_m));
+			}
 		pthread_mutex_unlock(&(data->eat_m));
 	}
 }
