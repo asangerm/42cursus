@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 23:48:28 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/13 18:00:55 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:41:29 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	*life(void *philo)
 	t_data		*data;
 	int			i;
 
-	
 	i = 0;
 	ph = (t_philo *)philo;
 	data = ph->data_ph;

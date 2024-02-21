@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:07:26 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/01 15:28:23 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:43:36 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ struct			s_data;
 typedef struct s_fork
 {
 	int	r;
-	int l;
+	int	l;
 }		t_fork;
 
 typedef struct s_philo
