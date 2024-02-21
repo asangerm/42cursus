@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:31:02 by asangerm          #+#    #+#             */
-/*   Updated: 2024/02/21 16:42:47 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:10:59 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,24 @@ void	is_dead(t_data *data, t_philo *ph)
 		}
 		pthread_mutex_unlock(&(data->eat_m));
 	}
+}
+
+int	check_value(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
