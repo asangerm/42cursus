@@ -48,33 +48,3 @@ void	set_mutex_thread(t_data *data)
 		data->philos[i].data_ph = data;
 	}
 }
-
-void	ft_error(char *str)
-{
-	printf("%s\n", str);
-	exit(0);
-}
-
-void	finish(t_data *data)
-{
-	t_philo	*ph;
-	int		i;
-
-	i = 0;
-	ph = data->philos;
-	if (data->n_philo == 1)
-		pthread_mutex_unlock(&(data->forks[ph[0].fork.l]));
-	while (i < data->n_philo)
-	{
-		pthread_join(ph[i].n_thread, NULL);
-		i++;
-	}
-	i = 0;
-	while (++i < data->n_philo)
-		pthread_mutex_destroy(&(data->forks[i]));
-	pthread_mutex_destroy(&(data->write_m));
-	pthread_mutex_destroy(&(data->eat_m));
-	free(data->forks);
-	free(data->philos);
-	exit (0);
-}

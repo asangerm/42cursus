@@ -6,7 +6,7 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 11:25:47 by asangerm          #+#    #+#              #
-#    Updated: 2023/11/02 21:54:54 by asangerm         ###   ########.fr        #
+#    Updated: 2024/04/13 03:35:05 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ $(LIBFT)		:	$(LIB_DIR)
 # The mlx rule
 $(MLX)			:	$(MLX_DIR)
 	@echo "\033[0;33mCompiling minilibx -> ⏳\033[0m"
-	@make all -sC $< > /dev/null 2>&1
+	make all -sC $< 
+#> /dev/null 2>&1
 	@echo "\033[0;32mMinilibx successfuly compiled -> ✅\033[0m\n"
 
 # Compile .c to .o files
