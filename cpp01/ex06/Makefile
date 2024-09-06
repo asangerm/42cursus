@@ -6,16 +6,16 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/09 15:16:20 by asangerm          #+#    #+#              #
-#    Updated: 2024/09/06 21:52:51 by asangerm         ###   ########.fr        #
+#    Updated: 2024/09/06 22:30:47 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		=	main.cpp
+SRC		=	main.cpp Harl.cpp
 OBJ		=	$(SRC:.cpp=.o)
 CC		=	g++
 RM		=	rm -rf
 FLAGS	=	-Wall -Wextra -Werror -std=c++98
-NAME	=	replace
+NAME	=	harlFilter
 
 all		:	$(NAME)
 
