@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:38:11 by asangerm          #+#    #+#             */
-/*   Updated: 2024/10/02 21:04:14 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:22:41 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class ClapTrap
 		virtual	~ClapTrap();
 
 		// Operator overloads
-		ClapTrap& operator = (const ClapTrap &src);
+		ClapTrap& operator = (const ClapTrap& src);
 
 		// Member functions
 		void	attack(const std::string& target);

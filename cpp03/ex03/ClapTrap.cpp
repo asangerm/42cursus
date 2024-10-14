@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:39:43 by asangerm          #+#    #+#             */
-/*   Updated: 2024/09/24 18:10:13 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:23:10 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 		<< "ClapTrap destructor called"	<< std::endl;
 	}
 // Operator overload
-	ClapTrap& ClapTrap::operator = (const ClapTrap &src)
+	ClapTrap& ClapTrap::operator = (const ClapTrap& src)
 	{
 		std::cout
 		<< "ClapTrap operator overload = called"	<< std::endl;
