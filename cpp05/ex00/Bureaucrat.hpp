@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:15:12 by asangerm          #+#    #+#             */
-/*   Updated: 2024/12/03 17:45:55 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:58:15 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,23 @@ class Bureaucrat
 	// Member functions
 		void upGrade(void);
 		void downGrade(void);
+
 	// Getters
 		const std::string getName(void) const;
 		int getGrade(void) const;
+	
+	//Exceptions
+		class GradeTooLowException : public std::exception
+		{
+		public:
+			virtual const char *what() const throw();
+		};
+
+		class GradeTooHighException : public std::exception
+		{
+		public:
+			virtual const char *what() const throw();
+		};
 };
 
 // Ostream overload

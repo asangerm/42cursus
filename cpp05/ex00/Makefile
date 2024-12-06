@@ -6,11 +6,11 @@
 #    By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 16:10:22 by asangerm          #+#    #+#              #
-#    Updated: 2024/12/03 16:10:29 by asangerm         ###   ########.fr        #
+#    Updated: 2024/12/06 15:55:21 by asangerm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		=	main.cpp 
+SRC		=	main.cpp Bureaucrat.cpp
 OBJ		=	$(SRC:.cpp=.o)
 CC		=	g++
 RM		=	rm -rf
