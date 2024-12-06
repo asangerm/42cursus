@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:15:21 by asangerm          #+#    #+#             */
-/*   Updated: 2024/12/06 17:25:50 by asangerm         ###   ########.fr       */
+/*   Updated: 2024/12/07 00:28:20 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,11 @@
 			<< e.what()
 			<< std::endl;
 		}
+	}
+
+	void Bureaucrat::signForm(Form &form)
+	{
+		form.beSigned(*this);
 	}
 
 
