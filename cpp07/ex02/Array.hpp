@@ -6,13 +6,14 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:36:08 by asangerm          #+#    #+#             */
-/*   Updated: 2024/12/11 23:47:12 by asangerm         ###   ########.fr       */
+/*   Updated: 2025/01/29 00:10:00 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
+#include <cstdlib>
 
 template	<typename T>
 class	Array
@@ -20,12 +21,12 @@ class	Array
 	private:
 	// Data
 		T*		elt;
-		uint	len;
+		unsigned int	len;
 
 	public:
 	// Constructors
 		Array();
-		Array(uint len);
+		Array(unsigned int len);
 		Array(const Array &src);
 	
 	// Destructors
@@ -33,8 +34,8 @@ class	Array
 
 	// Overload operators
 		Array&		operator = (const Array &src);
-		T&			operator [] (uint i);
-		const T&	operator [] (uint i) const;
+		T&			operator [] (unsigned int i);
+		const T&	operator [] (unsigned int i) const;
 
 	// Exceptions
 		class	OutOfBoundsException : public std::exception

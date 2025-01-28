@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:36:39 by asangerm          #+#    #+#             */
-/*   Updated: 2024/12/11 23:47:07 by asangerm         ###   ########.fr       */
+/*   Updated: 2025/01/29 00:11:44 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	}
 
 	template <typename T>
-	Array<T>::Array(uint len) : elt(new T[len]), len(len)
+	Array<T>::Array(unsigned int len) : elt(new T[len]), len(len)
 	{
 
 	}
@@ -30,7 +30,7 @@
 	template <typename T>
 	Array<T>::Array(const Array &src) : elt(new T[src.len]), len(src.len)
 	{
-		for (uint i = 0; i < src.len; i++)
+		for (unsigned int i = 0; i < src.len; i++)
 			elt[i] = src.elt[i];
 	}
 
@@ -48,22 +48,22 @@
 		delete [] elt;
 		len = src.len;
 		elt = new T[src.len];
-		for (uint i = 0; i < len; i++)
+		for (unsigned int i = 0; i < len; i++)
 			elt[i] = src.elt[i];
 		return (*this);
 	}
 
 	template <typename T>
-	T&	Array<T>::operator [] (uint i)
+	T&	Array<T>::operator [] (unsigned int i)
 	{
-		if (i >= len || i < 0)
+		if (i >= len)
 			throw OutOfBoundsException();
 		else
 			return (elt[i]);
 	}
 
 	template <typename T>
-	const T&	Array<T>::operator [] (uint i) const
+	const T&	Array<T>::operator [] (unsigned int i) const
 	{
 		if (i >= len || i < 0)
 			throw OutOfBoundsException();
