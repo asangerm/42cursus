@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:21:55 by asangerm          #+#    #+#             */
-/*   Updated: 2025/02/13 18:13:33 by asangerm         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:54:50 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int main(int argc, char** argv)
 	std::cout << "After: ";
 	test.printTab();
 	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector<int> : ";
+	test.printTime();
+	std::cout << " us" << std::endl;
+	test.sortMeD();
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::deque<int> : ";
 	test.printTime();
 	std::cout << " us" << std::endl;
 }
