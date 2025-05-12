@@ -6,7 +6,7 @@
 /*   By: asangerm <asangerm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:25:09 by asangerm          #+#    #+#             */
-/*   Updated: 2024/12/12 18:41:50 by asangerm         ###   ########.fr       */
+/*   Updated: 2025/01/29 00:26:28 by asangerm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
 	for (int i = 0; i < 10; i++)
 		v.push_back(i + 1);
 	std::cout << "vector: [";
-	for (int i = 0; i < v.size(); ++i)
+	for (size_t i = 0; i < v.size(); ++i)
         std::cout << " " << v[i] << ";";
 	std::cout << "]" << std::endl;
 
